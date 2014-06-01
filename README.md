@@ -1,3 +1,17 @@
+# TadHack
+
+## Redis
+
 ```bash
-$ docker run --rm -t -i -v `pwd`:/src tadhack /bin/bash -il
+$ docker run -d --name tadhack-redis marksteve/redis
+```
+
+## App
+
+```bash
+$ docker run --rm -t -i \
+  --link tadhack-redis:redis \
+  -p 5000:5000 \
+  -v `pwd`:/src tadhack \
+  /bin/bash -il
 ```
