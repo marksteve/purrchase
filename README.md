@@ -23,3 +23,11 @@ $ docker run --rm -t -i \
   -v `pwd`:/src tadhack \
   /bin/bash -il
 ```
+
+## Widget
+
+### Build
+
+```bash
+$ watchify -t reactify static/jsx/payload.js -o static/js/payload.js -v
+```

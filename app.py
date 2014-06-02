@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    return "INDEX"
+    return render_template('index.html')
 
 # ==== /oauth ==== #
 @app.route('/oauth', methods=['GET'])

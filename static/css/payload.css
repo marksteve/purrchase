@@ -1,0 +1,72 @@
+* {
+  box-sizing: border-box;
+}
+
+.payload-form {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.payload-form,
+.payload-form input,
+.payload-form button {
+  font: 20px/1.5 sans-serif;
+}
+
+.payload-form.hidden {
+  display: none;
+}
+
+.payload-form .overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.payload-form .box {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 300px;
+  height: 300px;
+  margin: auto;
+  background: white;
+  z-index: 10;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.payload-form .box h2 {
+  font-size: 100%;
+  line-height: 3rem;
+  background: dodgerblue;
+  margin: 0;
+  color: white;
+}
+
+.payload-form .box .details {
+  font-size: 120%;
+  border-bottom: 1px solid silver;
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
+  line-height: 1;
+}
+
+.payload-form .box input {
+  width: 80%;
+  padding: 0 0.5rem;
+  height: 2rem;
+}
+
+.payload-form .box button {
+  width: 80%;
+  padding: 0;
+  line-height: 2rem;
+}
