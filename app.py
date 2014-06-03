@@ -47,23 +47,27 @@ def sms_uri():
   params   = { 'access_token': access_token }
   req_body = {
     'outboundSMSMessageRequest': {
-      'clientCorrelator': security_code, #dyan muna yan
+      #'clientCorrelator': security_code, #dyan muna yan
       'senderAddress': 'tel:%s' % sender,
-      'outboundSMSTextMessage': { 'message':'Swaggy test!'},
+      'outboundSMSTextMessage': { 'message':'Swaggy test! This is your code: ' + security_code },
       'address': 'tel:+63%s' % msisdn
     }
   }
 
   res = requests.post(
     const.G_SMS_ENDPOINT % sender,
-    headers={"Content-Type": "application/json"},
-    params=params,
-    data=req_body
+    headers = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Accept': 'application/json'
+    },
+    params = params,
+    data = json.dumps(req_body)
   )
 
-  #pano ko malaman if nasend? =/
-  print res.text
-  return "ok"
+  if res.ok:
+    return "alright!"
+
+  return "boo!"
 # ==== END /sms ==== #
 
 # ==== /charge ==== #
