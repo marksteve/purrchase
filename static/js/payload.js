@@ -19002,7 +19002,10 @@ var React = require('react/addons');
 
 var Button = React.createClass({displayName: 'Button',
   showForm: function() {
-    this.props.form.setState({hidden: false});
+    this.props.form.setState({
+      options: this.props.options,
+      hidden: false
+    });
   },
   render: function() {
     return (
@@ -19010,7 +19013,7 @@ var Button = React.createClass({displayName: 'Button',
         {className:"payload-button",
         onClick:this.showForm}
         , 
-        "Pay with Globe Load"
+        "Buy"
       )
     );
   }
@@ -19019,6 +19022,7 @@ var Button = React.createClass({displayName: 'Button',
 var Form = React.createClass({displayName: 'Form',
   getInitialState: function() {
     return {
+      options: {},
       hidden: true
     };
   },
@@ -19030,7 +19034,7 @@ var Form = React.createClass({displayName: 'Form',
       'payload-form': true,
       'hidden': this.state.hidden
     });
-    var options = this.props.options;
+    var options = this.state.options;
     return (
       React.DOM.div( {className:className}, 
         React.DOM.div(
@@ -19060,22 +19064,27 @@ var Form = React.createClass({displayName: 'Form',
 });
 
 
-window.payload = function(options) {
+var container = document.createElement('div');
+document.body.appendChild(container);
 
-  var container = document.createElement('div');
-  document.body.appendChild(container);
+var form = React.renderComponent(
+  Form(null ),
+  container
+);
 
-  var form = React.renderComponent(
-    Form( {options:options} ),
-    container
-  );
+Array.prototype.forEach.call(
+  document.querySelectorAll('.payload'),
+  function(el) {
+    React.renderComponent(
+      Button(
+        {form:form,
+        options:el.dataset}
+      ),
+      el
+    );
+  }
+);
 
-  React.renderComponent(
-    Button( {form:form} ),
-    document.getElementById('payload')
-  );
-
-}
 
 },{"react/addons":1}],151:[function(require,module,exports){
 // shim for using process in browser

@@ -8,6 +8,7 @@
   right: 0;
   bottom: 0;
   left: 0;
+  text-align: center;
 }
 
 .payload-form,
@@ -53,9 +54,8 @@
 }
 
 .payload-form .box .details {
-  font-size: 120%;
   border-bottom: 1px solid silver;
-  padding-bottom: 1.5rem;
+  padding: 0 1.5em 1em 1.5em;
   margin-bottom: 2rem;
   line-height: 1;
 }
@@ -63,11 +63,11 @@
 .payload-form .box input {
   width: 80%;
   padding: 0 0.5rem;
-  height: 2rem;
+  height: 3rem;
 }
 
 .payload-form .box button {
   width: 80%;
   padding: 0;
-  line-height: 2rem;
+  line-height: 3rem;
 }

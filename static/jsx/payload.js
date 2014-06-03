@@ -4,7 +4,10 @@ var React = require('react/addons');
 
 var Button = React.createClass({
   showForm: function() {
-    this.props.form.setState({hidden: false});
+    this.props.form.setState({
+      options: this.props.options,
+      hidden: false
+    });
   },
   render: function() {
     return (
@@ -12,7 +15,7 @@ var Button = React.createClass({
         className="payload-button"
         onClick={this.showForm}
         >
-        Pay with Globe Load
+        Buy
       </button>
     );
   }
@@ -21,6 +24,7 @@ var Button = React.createClass({
 var Form = React.createClass({
   getInitialState: function() {
     return {
+      options: {},
       hidden: true
     };
   },
@@ -32,7 +36,7 @@ var Form = React.createClass({
       'payload-form': true,
       'hidden': this.state.hidden
     });
-    var options = this.props.options;
+    var options = this.state.options;
     return (
       <div className={className}>
         <div
@@ -62,19 +66,24 @@ var Form = React.createClass({
 });
 
 
-window.payload = function(options) {
+var container = document.createElement('div');
+document.body.appendChild(container);
 
-  var container = document.createElement('div');
-  document.body.appendChild(container);
+var form = React.renderComponent(
+  <Form />,
+  container
+);
 
-  var form = React.renderComponent(
-    <Form options={options} />,
-    container
-  );
+Array.prototype.forEach.call(
+  document.querySelectorAll('.payload'),
+  function(el) {
+    React.renderComponent(
+      <Button
+        form={form}
+        options={el.dataset}
+      />,
+      el
+    );
+  }
+);
 
-  React.renderComponent(
-    <Button form={form} />,
-    document.getElementById('payload')
-  );
-
-}

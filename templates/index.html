@@ -5,27 +5,122 @@
   <link rel="stylesheet" href="static/css/payload.css">
   <style>
     body, input, button {
-      font: 16px/1.5 sans-serif;
+      font: 16px/1.5 Garamond, serif;
     }
     body {
-      padding: 5em 0;
-      text-align: center;
+      padding: 0 2em;
+    }
+    button {
+      border: 0;
+      background: dodgerblue;
+      color: white;
+      padding: 0 1em;
+      line-height: 2em;
+    }
+    .books {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      letter-spacing: -0.5em;
+    }
+    .book {
+      vertical-align: top;
+      width: 300px;
+      height: 400px;
+      padding: 2em;
+      display: inline-block;
+      border: 1px solid;
+      margin: 0 2em 2em 0;
+      letter-spacing: 0;
+    }
+    .book h2 {
+      line-height: 1;
+      margin: 0;
+    }
+    .author {
+      font-size: 120%;
+      font-style: italic;
+      line-height: 1;
     }
   </style>
 </head>
 <body>
-  <div class="item">
-    <h2>Suka</h2>
-    <span class="price">Php 10.00</span>
-    <div id="payload"></div>
-    <script src="static/js/payload.js"></script>
-    <script>
-      payload({
-        header: "Tindahan ni Aling Nena",
-        desc: "1 x Suka",
-        amount: "Php 10.00"
-      });
-    </script>
-  </div>
+  <h1>Bookstore</h1>
+  <ul class="books">
+    <li class="book">
+      <h2>
+        Wizzywig: Portrait of a Serial Hacker
+      </h2>
+      <p class="author">Ed Piskor</p>
+      <p class="price">Php 400.00</p>
+      <div
+        class="payload"
+        data-header="Bookstore"
+        data-desc="Wizzywig: Portrait of a Serial Hacker"
+        data-amount="Php 400.00"
+      ></div>
+    </li>
+    <li class="book">
+      <h2>
+        March: Book One
+      </h2>
+      <p class="author">
+        Congressman John Lewis, Andrew Aydin, and Nate Powell
+      </p>
+      <p class="price">Php 10.00</p>
+      <div
+        class="payload"
+        data-header="Bookstore"
+        data-desc="March: Book One"
+        data-amount="Php 10.00"
+      ></div>
+    </li>
+    <li class="book">
+      <h2>
+        The Sword & Sorcery Anthology
+      </h2>
+      <p class="author">
+        Various, George R. R. Martin
+      </p>
+      <p class="price">Php 10.00</p>
+      <div
+        class="payload"
+        data-header="Bookstore"
+        data-desc="The Sword & Sorcery Anthology"
+        data-amount="Php 10.00"
+      ></div>
+    </li>
+    <li class="book">
+      <h2>
+        Jam
+      </h2>
+      <p class="author">
+        Yahtzee Croshaw
+      </p>
+      <p class="price">Php 10.00</p>
+      <div
+        class="payload"
+        data-header="Bookstore"
+        data-desc="Jam"
+        data-amount="Php 10.00"
+      ></div>
+    </li>
+    <li class="book">
+      <h2>
+        Lovecraft's Monsters: Anthology
+      </h2>
+      <p class="author">
+        Various, Neil Gaiman. Ellen Datlow, Editor
+      </p>
+      <p class="price">Php 10.00</p>
+      <div
+        class="payload"
+        data-header="Bookstore"
+        data-desc="Lovecraft's Monsters: Anthology"
+        data-amount="Php 10.00"
+      ></div>
+    </li>
+  </ul>
+  <script src="static/js/payload.js"></script>
 </body>
 </html>
