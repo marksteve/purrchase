@@ -1,13 +1,14 @@
 import os
 import const
 import uuid
+import time
 
 from flask import Flask, request, json, jsonify, render_template
-#from redis import StrictRedis
+from redis import StrictRedis
 import requests
 
 app = Flask(__name__)
-#r = StrictRedis(host=os.environ.get('REDIS_PORT_6379_TCP_ADDR'))
+r = StrictRedis(host=os.environ.get('REDIS_PORT_6379_TCP_ADDR'))
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -31,16 +32,39 @@ def get_access_token():
   params = {'app_id': app_id, 'app_secret': app_secret, 'code': code}
   res    = requests.post(const.G_AUTH_ENDPOINT, data=params)
 
-  return  jsonify(**res.json())
+  x = res.json()
+  #r.delete(x['subscriber_number'])
+  r.hset(x['subscriber_number'], 'access_token', x['access_token'])
+
+  return jsonify(**x)
 # ==== END /oauth ==== #
 
 # ==== /sms ==== #
 @app.route('/sms', methods=['POST', 'GET'])
 def sms_uri():
+  return "boo!"
+# ==== END /sms ==== #
+
+# ==== /charge ==== #
+"""
+Charge URI is the endpoint for charging and sending of sms
+This endpoint expects the ff params:
+ - msisdn
+ - amount
+"""
+@app.route('/charge', methods=['POST','GET'])
+def charge_uri():
+
+  msisdn = request.args['msisdn']
+  amount = request.args['amount']
+
+  #: get the access token from DB
+  access_token = r.hget(msisdn, 'access_token')
+  print access_token
   # HARDCODED STUFF huhu :((
-  msisdn = '9175246984'
+  #msisdn = '9175246984'
   sender = '0680' # this is weird! 21580680
-  access_token = 'tTDETIWF7yJtfdT_HlhMD53Ixqq26rSCHmdpJTO4TPY'
+  #access_token = 'tTDETIWF7yJtfdT_HlhMD53Ixqq26rSCHmdpJTO4TPY'
   # Generate a random code for this user session
   security_code = str(uuid.uuid4())[:6]
 
@@ -50,7 +74,7 @@ def sms_uri():
       'clientCorrelator': '123',
       'senderAddress': 'tel:%s' % sender,
       'outboundSMSTextMessage': {
-        'message': 'Swaggy test! This is your code: ' + security_code
+        'message': 'You will be charged PHP ' + amount + '. This is your code to proceed: ' + security_code
       },
       'address': ['tel:+63%s' % msisdn],
     }
@@ -66,15 +90,11 @@ def sms_uri():
   )
 
   if res.ok:
+    #: Maybe log a little?
+    # r.zadd(msisdn, time.localtime(), amount)
     return "alright!"
 
   print res.content
-  return "boo!"
-# ==== END /sms ==== #
-
-# ==== /charge ==== #
-@app.route('/charge', methods=['POST'])
-def charge_uri():
   return "CHARGE"
 # ==== END /charge ==== #
 
