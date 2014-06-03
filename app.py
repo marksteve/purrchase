@@ -35,7 +35,7 @@ def get_access_token():
 # ==== END /oauth ==== #
 
 # ==== /sms ==== #
-@app.route('/sms', methods=['POST','GET'])
+@app.route('/sms', methods=['POST', 'GET'])
 def sms_uri():
   # HARDCODED STUFF huhu :((
   msisdn = '9175246984'
@@ -47,18 +47,19 @@ def sms_uri():
   params   = { 'access_token': access_token }
   req_body = {
     'outboundSMSMessageRequest': {
-      #'clientCorrelator': security_code, #dyan muna yan
+      'clientCorrelator': '123',
       'senderAddress': 'tel:%s' % sender,
-      'outboundSMSTextMessage': { 'message':'Swaggy test! This is your code: ' + security_code },
-      'address': 'tel:+63%s' % msisdn
+      'outboundSMSTextMessage': {
+        'message': 'Swaggy test! This is your code: ' + security_code
+      },
+      'address': ['tel:+63%s' % msisdn],
     }
   }
 
   res = requests.post(
     const.G_SMS_ENDPOINT % sender,
     headers = {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Accept': 'application/json'
+      'Content-Type': 'application/json',
     },
     params = params,
     data = json.dumps(req_body)
@@ -67,6 +68,7 @@ def sms_uri():
   if res.ok:
     return "alright!"
 
+  print res.content
   return "boo!"
 # ==== END /sms ==== #
 
