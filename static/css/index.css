@@ -1,26 +1,37 @@
 body, input, button {
   font: 16px/1.5 Garamond, serif;
 }
+body {
+  padding: 0;
+  margin: 0;
+}
 button {
   cursor: pointer;
 }
-body {
-  padding: 0 2em;
+header {
+  background: url('../images/booklat.jpg') no-repeat center 62%;
+  background-size: cover;
+  padding-top: 10em;
+  padding: 10em 2em 0 2em;
+  color: white;
+  text-shadow: 0 0 0.5em black;
 }
 h1 {
   font-size: 300%;
   text-transform: uppercase;
-  border-bottom: 1px solid;
+  margin: 0;
   position: relative;
 }
 h1 .tagline {
-  text-transform: none;
   position: absolute;
   right: 0;
   font-size: 50%;
+  font-style: italic;
   font-weight: normal;
-  color: #ccc;
   line-height: 3;
+}
+section {
+  padding: 0 2em;
 }
 .books {
   list-style: none;
@@ -50,7 +61,7 @@ h1 .tagline {
   top: 0;
   left: 0;
   right: 0;
-  bottom: 50%;
+  bottom: 40%;
   padding: 2em;
   letter-spacing: 0;
   text-shadow: 0 0 5px black;
@@ -72,6 +83,12 @@ h1 .tagline {
   font-style: italic;
   line-height: 1;
 }
+.book-price {
+  display: inline-block;
+  border: 1px solid;
+  line-height: 2;
+  padding: 0 0.5em;
+}
 .book .payload {
   position: absolute;
   right: 2em;
@@ -86,8 +103,8 @@ h1 .tagline {
   font-size: 150%;
   border: 2px white solid;
 }
-.footer {
-  margin-top: 5em;
+footer {
+  margin: 5em 2em 2em 2em;
   color: #999;
   border-top: 1px solid;
   padding-top: 1em;
