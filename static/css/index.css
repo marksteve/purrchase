@@ -15,23 +15,44 @@ header {
   padding: 10em 2em 0 2em;
   color: white;
   text-shadow: 0 0 0.5em black;
+  border-bottom: 2px solid black;
 }
 h1 {
-  font-size: 300%;
+  font-size: 400%;
   text-transform: uppercase;
   margin: 0;
   position: relative;
+  font-weight: normal;
+  line-height: 4rem;
 }
 h1 .tagline {
   position: absolute;
   right: 0;
   font-size: 50%;
-  font-style: italic;
   font-weight: normal;
-  line-height: 3;
+  line-height: 4rem;
 }
 section {
-  padding: 0 2em;
+  padding: 2em 500px 2em 2em;
+  position: relative;
+}
+.sidebar {
+  position: absolute;
+  top: 2em;
+  right: 2em;
+  width: 400px;
+}
+.about {
+  margin: 0;
+  font-size: 150%;
+  font-style: italic;
+  border: 1px solid;
+  padding: 0.5em 1em;
+}
+h2 {
+  margin: 0 0 1.5em 0;
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid;
 }
 .books {
   list-style: none;
@@ -101,7 +122,7 @@ section {
   padding: 0 1em;
   line-height: 2em;
   font-size: 150%;
-  border: 2px white solid;
+  border: 1px white solid;
 }
 footer {
   margin: 5em 2em 2em 2em;
