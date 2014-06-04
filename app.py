@@ -14,6 +14,10 @@ r = StrictRedis(host=os.environ.get('REDIS_PORT_6379_TCP_ADDR'))
 def index():
   return render_template('index.html')
 
+@app.route('/opm', methods=['GET', 'POST'])
+def opm():
+  return render_template('opm.html')
+
 # ==== /oauth ==== #
 @app.route('/oauth', methods=['GET'])
 def oauth_uri():
