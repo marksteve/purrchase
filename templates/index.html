@@ -1,106 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>TadHack</title>
+  <title>Booklat</title>
   <link rel="stylesheet" href="static/css/payload.css">
-  <style>
-    body, input, button {
-      font: 16px/1.5 Garamond, serif;
-    }
-    button {
-      cursor: pointer;
-    }
-    body {
-      padding: 0 2em;
-    }
-    .books {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      letter-spacing: -0.5em;
-    }
-    .book {
-      vertical-align: top;
-      width: 300px;
-      height: 400px;
-      display: inline-block;
-      margin: 0 2em 2em 0;
-      position: relative;
-      background: center center no-repeat;
-      background-size: 100%;
-      color: white;
-      transition: background-size 0.2s;
-      overflow: hidden;
-    }
-    .book:hover {
-      background-size: 110%;
-    }
-    .book-details {
-      background-color: rgba(0, 0, 0, 0.8);
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 50%;
-      padding: 2em;
-      letter-spacing: 0;
-      text-shadow: 0 0 5px black;
-      transition: all 0.2s;
-      -webkit-transform: translateY(-50%);
-      opacity: 0;
-    }
-    .book:hover .book-details {
-      -webkit-transform: translateY(0);
-      opacity: 1;
-    }
-    .book-details h2 {
-      line-height: 1;
-      margin: 0;
-    }
-    .book-author {
-      font-size: 120%;
-      font-style: italic;
-      line-height: 1;
-    }
-    .book .payload {
-      position: absolute;
-      right: 2em;
-      bottom: 2em;
-    }
-    .payload-button {
-      border: 0;
-      background: black;
-      color: white;
-      padding: 0 1em;
-      line-height: 2em;
-      font-size: 150%;
-      border: 2px white solid;
-    }
-  </style>
+  <link rel="stylesheet" href="static/css/index.css">
 </head>
 <body>
-  <h1>Bookstore</h1>
+  <h1>
+    Booklat
+    <span class="tagline">Books. Books. Books. Since Y2K.</span>
+  </h1>
+  <h2>Humble Books</h2>
   <ul class="books">
     <li class="book" style="background-image: url('/static/images/wizzywig.png')">
       <div class="book-details">
-      <h2>
+      <h3>
         Wizzywig: Portrait of a Serial Hacker
-      </h2>
+      </h3>
       <p class="book-author">Ed Piskor</p>
       <p class="book-price">Php 400.00</p>
       </div>
       <div
         class="payload"
-        data-header="Bookstore"
+        data-header="Booklat"
         data-desc="Wizzywig: Portrait of a Serial Hacker"
         data-amount="Php 400.00"
       ></div>
     </li>
     <li class="book" style="background-image: url('/static/images/march.png')">
       <div class="book-details">
-      <h2>
+      <h3>
         March: Book One
-      </h2>
+      </h3>
       <p class="book-author">
         Congressman John Lewis, Andrew Aydin, and Nate Powell
       </p>
@@ -108,16 +39,16 @@
       </div>
       <div
         class="payload"
-        data-header="Bookstore"
+        data-header="Booklat"
         data-desc="March: Book One"
         data-amount="Php 500.00"
       ></div>
     </li>
     <li class="book" style="background-image: url('/static/images/swordandsorcery.png')">
       <div class="book-details">
-      <h2>
+      <h3>
         The Sword & Sorcery Anthology
-      </h2>
+      </h3>
       <p class="book-author">
         Various, George R. R. Martin
       </p>
@@ -125,16 +56,16 @@
       </div>
       <div
         class="payload"
-        data-header="Bookstore"
+        data-header="Booklat"
         data-desc="The Sword & Sorcery Anthology"
         data-amount="Php 500.00"
       ></div>
     </li>
     <li class="book" style="background-image: url('/static/images/jam.png')">
       <div class="book-details">
-      <h2>
+      <h3>
         Jam
-      </h2>
+      </h3>
       <p class="book-author">
         Yahtzee Croshaw
       </p>
@@ -142,16 +73,16 @@
       </div>
       <div
         class="payload"
-        data-header="Bookstore"
+        data-header="Booklat"
         data-desc="Jam"
         data-amount="Php 500.00"
       ></div>
     </li>
     <li class="book" style="background-image: url('/static/images/lovecraft.png')">
       <div class="book-details">
-      <h2>
+      <h3>
         Lovecraft's Monsters: Anthology
-      </h2>
+      </h3>
       <p class="book-author">
         Various, Neil Gaiman. Ellen Datlow, Editor
       </p>
@@ -159,12 +90,20 @@
       </div>
       <div
         class="payload"
-        data-header="Bookstore"
+        data-header="Booklat"
         data-desc="Lovecraft's Monsters: Anthology"
         data-amount="Php 500.00"
       ></div>
     </li>
   </ul>
+  <div class="footer">
+    <span class="copyright">&copy; 2014 Booklat</span>
+    <ul class="footer-links">
+      <li>FAQ</li>
+      <li>About</li>
+      <li>Terms</li>
+    </ul>
+  </div>
   <script src="static/js/payload.js"></script>
 </body>
 </html>
