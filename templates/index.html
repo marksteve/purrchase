@@ -13,13 +13,6 @@
     body {
       padding: 0 2em;
     }
-    .payload-button {
-      border: 0;
-      background: black;
-      color: white;
-      padding: 0 1em;
-      line-height: 2em;
-    }
     .books {
       list-style: none;
       padding: 0;
@@ -30,32 +23,70 @@
       vertical-align: top;
       width: 300px;
       height: 400px;
-      padding: 2em;
       display: inline-block;
-      border: 1px solid;
       margin: 0 2em 2em 0;
-      letter-spacing: 0;
+      position: relative;
+      background: center center no-repeat;
+      background-size: 100%;
+      color: white;
+      transition: background-size 0.2s;
     }
-    .book h2 {
+    .book:hover {
+      background-size: 110%;
+    }
+    .book-details {
+      background-color: rgba(0, 0, 0, 0.8);
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 100%;
+      padding: 2em;
+      letter-spacing: 0;
+      text-shadow: 0 0 5px black;
+      opacity: 0;
+      transition: all 0.2s;
+    }
+    .book:hover .book-details {
+      opacity: 1;
+      bottom: 50%;
+    }
+    .book-details h2 {
       line-height: 1;
       margin: 0;
     }
-    .author {
+    .book-author {
       font-size: 120%;
       font-style: italic;
       line-height: 1;
+    }
+    .book .payload {
+      position: absolute;
+      right: 2em;
+      bottom: 2em;
+    }
+    .payload-button {
+      border: 0;
+      background: black;
+      color: white;
+      padding: 0 1em;
+      line-height: 2em;
+      font-size: 150%;
+      border: 2px white solid;
     }
   </style>
 </head>
 <body>
   <h1>Bookstore</h1>
   <ul class="books">
-    <li class="book">
+    <li class="book" style="background-image: url('/static/images/wizzywig.png')">
+      <div class="book-details">
       <h2>
         Wizzywig: Portrait of a Serial Hacker
       </h2>
-      <p class="author">Ed Piskor</p>
-      <p class="price">Php 400.00</p>
+      <p class="book-author">Ed Piskor</p>
+      <p class="book-price">Php 400.00</p>
+      </div>
       <div
         class="payload"
         data-header="Bookstore"
@@ -63,64 +94,72 @@
         data-amount="Php 400.00"
       ></div>
     </li>
-    <li class="book">
+    <li class="book" style="background-image: url('/static/images/march.png')">
+      <div class="book-details">
       <h2>
         March: Book One
       </h2>
-      <p class="author">
+      <p class="book-author">
         Congressman John Lewis, Andrew Aydin, and Nate Powell
       </p>
-      <p class="price">Php 10.00</p>
+      <p class="book-price">Php 500.00</p>
+      </div>
       <div
         class="payload"
         data-header="Bookstore"
         data-desc="March: Book One"
-        data-amount="Php 10.00"
+        data-amount="Php 500.00"
       ></div>
     </li>
-    <li class="book">
+    <li class="book" style="background-image: url('/static/images/swordandsorcery.png')">
+      <div class="book-details">
       <h2>
         The Sword & Sorcery Anthology
       </h2>
-      <p class="author">
+      <p class="book-author">
         Various, George R. R. Martin
       </p>
-      <p class="price">Php 10.00</p>
+      <p class="book-price">Php 500.00</p>
+      </div>
       <div
         class="payload"
         data-header="Bookstore"
         data-desc="The Sword & Sorcery Anthology"
-        data-amount="Php 10.00"
+        data-amount="Php 500.00"
       ></div>
     </li>
-    <li class="book">
+    <li class="book" style="background-image: url('/static/images/jam.png')">
+      <div class="book-details">
       <h2>
         Jam
       </h2>
-      <p class="author">
+      <p class="book-author">
         Yahtzee Croshaw
       </p>
-      <p class="price">Php 10.00</p>
+      <p class="book-price">Php 500.00</p>
+      </div>
       <div
         class="payload"
         data-header="Bookstore"
         data-desc="Jam"
-        data-amount="Php 10.00"
+        data-amount="Php 500.00"
       ></div>
     </li>
-    <li class="book">
+    <li class="book" style="background-image: url('/static/images/lovecraft.png')">
+      <div class="book-details">
       <h2>
         Lovecraft's Monsters: Anthology
       </h2>
-      <p class="author">
+      <p class="book-author">
         Various, Neil Gaiman. Ellen Datlow, Editor
       </p>
-      <p class="price">Php 10.00</p>
+      <p class="book-price">Php 500.00</p>
+      </div>
       <div
         class="payload"
         data-header="Bookstore"
         data-desc="Lovecraft's Monsters: Anthology"
-        data-amount="Php 10.00"
+        data-amount="Php 500.00"
       ></div>
     </li>
   </ul>
