@@ -49,7 +49,7 @@ section {
   border: 1px solid;
   padding: 0.5em 1em;
 }
-h2 {
+section h2 {
   margin: 0 0 1.5em 0;
   padding-bottom: 0.5em;
   border-bottom: 1px solid;

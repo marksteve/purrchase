@@ -37,7 +37,12 @@ var Form = React.createClass({
     $(this.refs.overlay.getDOMNode())
       .velocity('fadeIn', 200);
     $(this.refs.box.getDOMNode())
-      .velocity('transition.expandIn', 200);
+      .velocity('transition.expandIn', 500);
+    $(this.getDOMNode()).find('p')
+      .velocity('transition.slideUpBigIn', {
+        stagger: 100,
+        duration: 500
+      });
   },
   hide: function() {
     this.setState({hidden: true});
