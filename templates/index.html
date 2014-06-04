@@ -30,6 +30,7 @@
       background-size: 100%;
       color: white;
       transition: background-size 0.2s;
+      overflow: hidden;
     }
     .book:hover {
       background-size: 110%;
@@ -40,16 +41,17 @@
       top: 0;
       left: 0;
       right: 0;
-      bottom: 100%;
+      bottom: 50%;
       padding: 2em;
       letter-spacing: 0;
       text-shadow: 0 0 5px black;
-      opacity: 0;
       transition: all 0.2s;
+      -webkit-transform: translateY(-50%);
+      opacity: 0;
     }
     .book:hover .book-details {
+      -webkit-transform: translateY(0);
       opacity: 1;
-      bottom: 50%;
     }
     .book-details h2 {
       line-height: 1;
