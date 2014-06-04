@@ -25,9 +25,8 @@
         </div>
         <div
           class="phonepay"
-          data-header="Booklat"
           data-desc="Wizzywig: Portrait of a Serial Hacker"
-          data-amount="Php 400.00"
+          data-amount="400.00"
         ></div>
       </li>
       <li class="book" style="background-image: url('/static/images/march.png')">
@@ -42,9 +41,8 @@
         </div>
         <div
           class="phonepay"
-          data-header="Booklat"
           data-desc="March: Book One"
-          data-amount="Php 500.00"
+          data-amount="500.00"
         ></div>
       </li>
       <li class="book" style="background-image: url('/static/images/swordandsorcery.png')">
@@ -59,9 +57,8 @@
         </div>
         <div
           class="phonepay"
-          data-header="Booklat"
           data-desc="The Sword & Sorcery Anthology"
-          data-amount="Php 500.00"
+          data-amount="500.00"
         ></div>
       </li>
       <li class="book" style="background-image: url('/static/images/jam.png')">
@@ -76,9 +73,8 @@
         </div>
         <div
           class="phonepay"
-          data-header="Booklat"
           data-desc="Jam"
-          data-amount="Php 500.00"
+          data-amount="500.00"
         ></div>
       </li>
       <li class="book" style="background-image: url('/static/images/lovecraft.png')">
@@ -93,9 +89,8 @@
         </div>
         <div
           class="phonepay"
-          data-header="Booklat"
           data-desc="Lovecraft's Monsters: Anthology"
-          data-amount="Php 500.00"
+          data-amount="500.00"
         ></div>
       </li>
     </ul>
@@ -139,5 +134,8 @@
     </ul>
   </footer>
   <script src="static/js/phonepay.js"></script>
+  <script>
+    pp({header: 'Booklat', currency: 'PHP'});
+  </script>
 </body>
 </html>

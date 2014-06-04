@@ -64,11 +64,11 @@ def charge():
   - amount
   """
 
-  subscribe_number = request.args['subscriber_number']
-  amount = request.args['amount']
+  subscriber_number = request.json['subscriber_number']
+  amount = request.json['amount']
 
   #: get the access token from DB
-  access_token = r.hget(subscriber_number, 'access_token')
+  access_token = db.hget(subscriber_number, 'access_token')
 
   # check access token
   if not access_token:
@@ -86,9 +86,12 @@ def charge():
       'clientCorrelator': str(simpleflake()),
       'senderAddress': 'tel:{}'.format(sender),
       'outboundSMSTextMessage': {
-        'message': 'You will be charged PHP ' + amount + '. This is your code to proceed: ' + security_code
+        'message': 'PHonePay\n\nYou will be charged PHP {}. This is your code to proceed: {}'.format(
+          amount,
+          security_code,
+        ),
       },
-      'address': ['tel:{}'.format(subscriber_number)],
+      'address': ['tel:+63{}'.format(subscriber_number)],
     }
   }
 

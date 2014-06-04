@@ -1,6 +1,7 @@
 /** @jsx React.DOM */
 
 var React = require('react/addons');
+var superagent = require('superagent');
 var $ = window.jQuery = require('jquery');
 
 require('./jquery.velocity.min');
@@ -26,33 +27,118 @@ var Form = React.createClass({
   getInitialState: function() {
     return {
       options: {},
-      hidden: true
+      hidden: true,
+      number: true,
+      authorize: false,
+      dialogUrl: null
     };
   },
   show: function(options) {
+    options = $.extend(this.state.options, options);
     this.setState({
       options: options,
-      hidden: false
+      hidden: false,
+      number: true,
+      authorize: false
     });
-    $(this.refs.overlay.getDOMNode())
-      .velocity('fadeIn', 200);
-    $(this.refs.box.getDOMNode())
-      .velocity('transition.expandIn', 500);
-    $(this.getDOMNode()).find('p')
-      .velocity('transition.slideUpBigIn', {
-        stagger: 100,
-        duration: 500
-      });
   },
   hide: function() {
     this.setState({hidden: true});
   },
+  pay: function() {
+    var number = this.refs.number.getDOMNode().value;
+    var options = this.state.options;
+    superagent
+      .post('/charge')
+      .send({
+        subscriber_number: number,
+        amount: options.amount
+      })
+      .end((function(res) {
+        if (res.body.ok) {
+        } else {
+          if (res.body.dialog_url) {
+            this.showAuthorize(res.body.dialog_url);
+          }
+        }
+      }).bind(this));
+  },
+  showAuthorize: function(url) {
+    this.setState({
+      number: false,
+      authorize: true,
+      dialogUrl: url
+    });
+  },
+  componentDidUpdate: function(prevProps, prevState) {
+    if (!this.state.hidden) {
+      if (this.state.number) {
+        setTimeout((function() {
+          $(this.refs.number.getDOMNode())
+            .focus();
+        }).bind(this), 1);
+      }
+      if (this.state.hidden != prevState.hidden) {
+        $(this.getDOMNode()).find('p')
+          .velocity('transition.slideUpBigIn', {
+            stagger: 100,
+            duration: 500
+          });
+        $(this.refs.overlay.getDOMNode())
+          .velocity('fadeIn', 200);
+        $(this.refs.box.getDOMNode())
+          .velocity('transition.expandIn', 500);
+      }
+    }
+  },
   render: function() {
     var className = React.addons.classSet({
       'phonepay-form': true,
-      'hidden': this.state.hidden
+      'hidden': this.state.hidden,
     });
     var options = this.state.options;
+    var box = [];
+    if (this.state.number) {
+      box.push(
+        <p>
+          <input
+            ref="number"
+            type="text"
+            placeholder="Cellphone Number"
+          />
+        </p>
+      );
+      box.push(
+        <p>
+          <button
+            ref="pay"
+            onClick={this.pay}
+            >
+            Pay with Globe Load
+          </button>
+        </p>
+      );
+    }
+    if (this.state.authorize) {
+      box.push(
+        <p className="authorize-instructions">
+          Hello new user! Please authorize
+          with Globe first to proceed.
+        </p>
+      );
+      box.push(
+        <p>
+          <a
+            href={this.state.dialogUrl}
+            ref="authorize"
+            target="_blank"
+            onClick={this.show}
+            >
+            Authorize
+          </a>
+        </p>
+      );
+    }
     return (
       <div className={className}>
         <div
@@ -66,17 +152,9 @@ var Form = React.createClass({
           >
           <h2>{options.header}</h2>
           <p className="details">
-            {options.desc} <span className="amount">({options.amount})</span>
+            {options.desc} <span className="amount">({options.currency}{options.amount})</span>
           </p>
-          <p>
-            <input ref="number" type="text" placeholder="Cellphone #" />
-          </p>
-          <p>
-            <button
-              >
-              Pay with Globe Load
-            </button>
-          </p>
+          {box}
           <p className="powered-by">
             Powered by PHonePay
           </p>
@@ -86,7 +164,6 @@ var Form = React.createClass({
   }
 });
 
-
 var container = document.createElement('div');
 document.body.appendChild(container);
 
@@ -94,6 +171,12 @@ var form = React.renderComponent(
   <Form />,
   container
 );
+
+window.pp = function(options) {
+  form.setState({
+    options: options
+  });
+};
 
 Array.prototype.forEach.call(
   document.querySelectorAll('.phonepay'),

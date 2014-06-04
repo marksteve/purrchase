@@ -2,6 +2,7 @@
   "name": "payload",
   "dependencies": {
     "jquery": "*",
-    "react": "*"
+    "react": "*",
+    "superagent": "*"
   }
 }
