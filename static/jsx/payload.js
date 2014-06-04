@@ -66,7 +66,7 @@ var Form = React.createClass({
           >
           <h2>{options.header}</h2>
           <p className="details">
-            {options.desc} ({options.amount})
+            {options.desc} <span className="amount">({options.amount})</span>
           </p>
           <p>
             <input ref="number" type="text" placeholder="Cellphone #" />
@@ -76,6 +76,9 @@ var Form = React.createClass({
               >
               Pay with Globe Load
             </button>
+          </p>
+          <p className="powered-by">
+            Powered by PHonePay
           </p>
         </div>
       </div>

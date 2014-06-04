@@ -55,10 +55,16 @@
 }
 
 .payload-form .box .details {
+  font-size: 120%;
   border-bottom: 1px solid silver;
   padding: 0 1.5em 1em 1.5em;
   margin-bottom: 2rem;
   line-height: 1;
+  height: 5em;
+}
+
+.payload-form .box .amount {
+  white-space: nowrap;
 }
 
 .payload-form .box input {
@@ -71,4 +77,9 @@
   width: 80%;
   padding: 0;
   line-height: 3rem;
+}
+
+.payload-form .box .powered-by {
+  font-size: 50%;
+  color: gray;
 }

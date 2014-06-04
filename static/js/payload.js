@@ -28264,7 +28264,7 @@ var Form = React.createClass({displayName: 'Form',
           , 
           React.DOM.h2(null, options.header),
           React.DOM.p( {className:"details"}, 
-            options.desc, " (",options.amount,")"
+            options.desc, " ", React.DOM.span( {className:"amount"}, "(",options.amount,")")
           ),
           React.DOM.p(null, 
             React.DOM.input( {ref:"number", type:"text", placeholder:"Cellphone #"} )
@@ -28274,6 +28274,9 @@ var Form = React.createClass({displayName: 'Form',
               , 
               "Pay with Globe Load"
             )
+          ),
+          React.DOM.p( {className:"powered-by"}, 
+            "Powered by PHonePay"
           )
         )
       )
