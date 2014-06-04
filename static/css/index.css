@@ -110,12 +110,12 @@ section h2 {
   line-height: 2;
   padding: 0 0.5em;
 }
-.book .payload {
+.book .phonepay {
   position: absolute;
   right: 2em;
   bottom: 2em;
 }
-.payload-button {
+.phonepay-button {
   border: 0;
   background: black;
   color: white;

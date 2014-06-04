@@ -2,7 +2,7 @@
   box-sizing: border-box;
 }
 
-.payload-form {
+.phonepay-form {
   position: fixed;
   top: 0;
   right: 0;
@@ -11,17 +11,17 @@
   text-align: center;
 }
 
-.payload-form,
-.payload-form input,
-.payload-form button {
+.phonepay-form,
+.phonepay-form input,
+.phonepay-form button {
   font: 20px/1.5 sans-serif;
 }
 
-.payload-form.hidden {
+.phonepay-form.hidden {
   display: none;
 }
 
-.payload-form .overlay {
+.phonepay-form .overlay {
   position: absolute;
   top: 0;
   right: 0;
@@ -30,7 +30,7 @@
   background: rgba(0, 0, 0, 0.5);
 }
 
-.payload-form .box {
+.phonepay-form .box {
   overflow: hidden;
   position: absolute;
   top: 0;
@@ -45,7 +45,7 @@
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
 }
 
-.payload-form .box h2 {
+.phonepay-form .box h2 {
   font-size: 100%;
   font-weight: normal;
   line-height: 3rem;
@@ -54,7 +54,7 @@
   color: white;
 }
 
-.payload-form .box .details {
+.phonepay-form .box .details {
   font-size: 120%;
   border-bottom: 1px solid silver;
   padding: 0 1.5em 1em 1.5em;
@@ -63,23 +63,23 @@
   height: 5em;
 }
 
-.payload-form .box .amount {
+.phonepay-form .box .amount {
   white-space: nowrap;
 }
 
-.payload-form .box input {
+.phonepay-form .box input {
   width: 80%;
   padding: 0 0.5rem;
   height: 3rem;
 }
 
-.payload-form .box button {
+.phonepay-form .box button {
   width: 80%;
   padding: 0;
   line-height: 3rem;
 }
 
-.payload-form .box .powered-by {
+.phonepay-form .box .powered-by {
   font-size: 50%;
   color: gray;
 }

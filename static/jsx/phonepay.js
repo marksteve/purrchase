@@ -13,7 +13,7 @@ var Button = React.createClass({
   render: function() {
     return (
       <button
-        className="payload-button"
+        className="phonepay-button"
         onClick={this.showForm}
         >
         Buy
@@ -49,7 +49,7 @@ var Form = React.createClass({
   },
   render: function() {
     var className = React.addons.classSet({
-      'payload-form': true,
+      'phonepay-form': true,
       'hidden': this.state.hidden
     });
     var options = this.state.options;
@@ -96,7 +96,7 @@ var form = React.renderComponent(
 );
 
 Array.prototype.forEach.call(
-  document.querySelectorAll('.payload'),
+  document.querySelectorAll('.phonepay'),
   function(el) {
     React.renderComponent(
       <Button

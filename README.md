@@ -29,5 +29,5 @@ $ docker run --rm -t -i \
 ### Build
 
 ```bash
-$ watchify -t reactify static/jsx/payload.js -o static/js/payload.js -v
+$ watchify -t reactify static/jsx/phonepay.js -o static/js/phonepay.js -v
 ```
