@@ -1,0 +1,12 @@
+app:
+  image: tadhack
+  links:
+    - redis:redis
+  ports:
+    - 5000:5000
+  volumes:
+    - .:/src
+  command: python app.py
+
+redis:
+  image: marksteve/redis
