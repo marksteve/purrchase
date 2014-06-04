@@ -1,13 +1,14 @@
 /** @jsx React.DOM */
 
 var React = require('react/addons');
+var $ = window.jQuery = require('jquery');
+
+require('./jquery.velocity.min');
+require('./velocity.ui');
 
 var Button = React.createClass({
   showForm: function() {
-    this.props.form.setState({
-      options: this.props.options,
-      hidden: false
-    });
+    this.props.form.show(this.props.options);
   },
   render: function() {
     return (
@@ -28,6 +29,16 @@ var Form = React.createClass({
       hidden: true
     };
   },
+  show: function(options) {
+    this.setState({
+      options: options,
+      hidden: false
+    });
+    $(this.refs.overlay.getDOMNode())
+      .velocity('fadeIn', 200);
+    $(this.refs.box.getDOMNode())
+      .velocity('transition.expandIn', 200);
+  },
   hide: function() {
     this.setState({hidden: true});
   },
@@ -40,10 +51,12 @@ var Form = React.createClass({
     return (
       <div className={className}>
         <div
+          ref="overlay"
           className="overlay"
           onClick={this.hide}
         />
         <div
+          ref="box"
           className="box"
           >
           <h2>{options.header}</h2>
