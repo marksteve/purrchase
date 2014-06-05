@@ -18,7 +18,7 @@ buildcss:
   image: tadhack
   volumes:
     - .:/src
-  command: watchmedo shell-command -R -p "*.css" -c "csscomb -v static/css/"
+  command: watchmedo shell-command -R -w -p "*.css" -c "csscomb -v static/css/"
 
 redis:
   image: marksteve/redis
