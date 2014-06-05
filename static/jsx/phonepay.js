@@ -83,16 +83,21 @@ var Form = React.createClass({
     });
   },
   confirm: function() {
-    var confirmCode = this.refs.confirmCode.getDOMNode().value;
+    var $confirmCode = $(this.refs.confirmCode.getDOMNode());
     var $confirm = $(this.refs.confirm.getDOMNode());
     superagent
       .post('/confirm')
       .send({
         subscriber_number: this.state.number,
-        confirm_code: confirmCode
+        confirm_code: $confirmCode.val()
       })
       .end((function(res) {
-        this.showDownload(res.body.download_url);
+        if (res.ok) {
+          this.showDownload(res.body.download_url);
+        } else {
+          $confirmCode.val('Invalid Code').select();
+          $confirm.text('Try Again');
+        }
         $confirm.prop('disabled', false);
       }).bind(this));
     $confirm.prop('disabled', true);

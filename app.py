@@ -119,13 +119,13 @@ def confirm():
   confirm_key = '{}:confirm:{}'.format(subscriber_number, confirm_code)
   amount = db.get(confirm_key)
   if not amount:
-    abort(404)
+    abort(400)
   db.delete(confirm_key)
 
   # Get access token
   access_token = db.hget(subscriber_number, 'access_token')
   if not access_token:
-    abort(404)
+    abort(403)
 
   suffix = app.config['GLOBE_SHORTCODE'][-4:] # this is weird!
   reference_code = '{0}1{1:06d}'.format(suffix, db.scard('charges') + 1)
