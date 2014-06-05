@@ -1,145 +1,199 @@
-body, input, button {
+body, input, button
+{
   font: 16px/1.5 Garamond, serif;
 }
-body {
-  padding: 0;
+body
+{
   margin: 0;
+  padding: 0;
 }
-button {
+button
+{
   cursor: pointer;
 }
-header {
+header
+{
+  padding: 10em 2em 0 2em;
+  padding-top: 10em;
+
+  color: white;
+  border-bottom: 2px solid black;
   background: url('../images/booklat.jpg') no-repeat center 62%;
   background-size: cover;
-  padding-top: 10em;
-  padding: 10em 2em 0 2em;
-  color: white;
-  text-shadow: 0 0 0.5em black;
-  border-bottom: 2px solid black;
+  text-shadow: 0 0 .5em black;
 }
-h1 {
+h1
+{
   font-size: 400%;
-  text-transform: uppercase;
-  margin: 0;
-  position: relative;
   font-weight: normal;
   line-height: 4rem;
+
+  position: relative;
+
+  margin: 0;
+
+  text-transform: uppercase;
 }
-h1 .tagline {
-  position: absolute;
-  right: 0;
+h1 .tagline
+{
   font-size: 50%;
   font-weight: normal;
   line-height: 4rem;
+
+  position: absolute;
+  right: 0;
 }
-section {
-  padding: 2em 500px 2em 2em;
+section
+{
   position: relative;
+
+  padding: 2em 500px 2em 2em;
 }
-.sidebar {
+.sidebar
+{
   position: absolute;
   top: 2em;
   right: 2em;
+
   width: 400px;
 }
-.about {
-  margin: 0;
+.about
+{
   font-size: 150%;
   font-style: italic;
+
+  margin: 0;
+  padding: .5em 1em;
+
   border: 1px solid;
-  padding: 0.5em 1em;
 }
-section h2 {
+section h2
+{
   margin: 0 0 1.5em 0;
-  padding-bottom: 0.5em;
+  padding-bottom: .5em;
+
   border-bottom: 1px solid;
 }
-.books {
-  list-style: none;
-  padding: 0;
+.books
+{
   margin: 0;
-  letter-spacing: -0.5em;
+  padding: 0;
+
+  list-style: none;
+
+  letter-spacing: -.5em;
 }
-.book {
-  vertical-align: top;
+.book
+{
+  position: relative;
+
+  display: inline-block;
+  overflow: hidden;
+
   width: 300px;
   height: 400px;
-  display: inline-block;
   margin: 0 2em 2em 0;
-  position: relative;
+
+  transition: background-size .2s;
+  vertical-align: top;
+
+  color: white;
   background: center center no-repeat;
   background-size: 100%;
-  color: white;
-  transition: background-size 0.2s;
-  overflow: hidden;
 }
-.book:hover {
+.book:hover
+{
   background-size: 110%;
 }
-.book-details {
-  background-color: rgba(0, 0, 0, 0.8);
+.book-details
+{
   position: absolute;
   top: 0;
-  left: 0;
   right: 0;
   bottom: 40%;
+  left: 0;
+
   padding: 2em;
-  letter-spacing: 0;
-  text-shadow: 0 0 5px black;
-  transition: all 0.2s;
+
+  transition: all .2s;
   -webkit-transform: translateY(-50%);
+  letter-spacing: 0;
+
   opacity: 0;
+  background-color: rgba(0, 0, 0, .8);
+  text-shadow: 0 0 5px black;
 }
-.book:hover .book-details {
+.book:hover .book-details
+{
   -webkit-transform: translateY(0);
+
   opacity: 1;
 }
-.book-details h3 {
+.book-details h3
+{
   font-size: 120%;
   line-height: 1;
+
   margin: 0;
 }
-.book-author {
+.book-author
+{
   font-size: 110%;
   font-style: italic;
   line-height: 1;
 }
-.book-price {
-  display: inline-block;
-  border: 1px solid;
+.book-price
+{
   line-height: 2;
-  padding: 0 0.5em;
+
+  display: inline-block;
+
+  padding: 0 .5em;
+
+  border: 1px solid;
 }
-.book .phonepay {
+.book .phonepay
+{
   position: absolute;
   right: 2em;
   bottom: 2em;
 }
-.phonepay-button {
-  border: 0;
-  background: black;
-  color: white;
-  padding: 0 1em;
-  line-height: 2em;
+.phonepay-button
+{
   font-size: 150%;
+  line-height: 2em;
+
+  padding: 0 1em;
+
+  color: white;
+  border: 0;
   border: 1px white solid;
+  background: black;
 }
-footer {
+footer
+{
   margin: 5em 2em 2em 2em;
+  padding-top: 1em;
+
   color: #999;
   border-top: 1px solid;
-  padding-top: 1em;
 }
-.copyright {
+.copyright
+{
   margin-right: 2em;
 }
-.footer-links {
-  list-style: none;
+.footer-links
+{
+  display: inline-block;
+
   margin: 0;
   padding: 0;
-  display: inline-block;
+
+  list-style: none;
 }
-.footer-links li {
+.footer-links li
+{
   display: inline-block;
+
   margin-right: 1em;
 }

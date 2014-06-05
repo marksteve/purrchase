@@ -1,106 +1,139 @@
-* {
+*
+{
   box-sizing: border-box;
 }
 
-.phonepay-form {
+.phonepay-form
+{
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
+
   text-align: center;
 }
 
 .phonepay-form,
 .phonepay-form input,
-.phonepay-form button {
+.phonepay-form button
+{
   font: 20px/1.5 sans-serif;
 }
 
-.phonepay-form.hidden {
+.phonepay-form.hidden
+{
   display: none;
 }
 
-.phonepay-form .overlay {
+.phonepay-form .overlay
+{
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.5);
+
+  background: rgba(0, 0, 0, .5);
 }
 
-.phonepay-form .box {
-  overflow: hidden;
+.phonepay-form .box
+{
   position: absolute;
+  z-index: 10;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
+
+  overflow: hidden;
+
   width: 300px;
   height: 400px;
   margin: auto;
+
   background: white;
-  z-index: 10;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, .5);
 }
 
-.phonepay-form .box h2 {
+.phonepay-form .box h2
+{
   font-size: 100%;
   font-weight: normal;
   line-height: 3rem;
-  background: dodgerblue;
+
   margin: 0;
+
   color: white;
+  background: dodgerblue;
 }
 
-.phonepay-form .box .details {
+.phonepay-form .box .details
+{
   font-size: 120%;
-  border-bottom: 1px solid silver;
-  padding: 0 1.5em 1em 1.5em;
-  margin: 1em 0 0 0;
   line-height: 1;
+
   height: 5em;
+  margin: 1em 0 0 0;
+  padding: 0 1.5em 1em 1.5em;
+
+  border-bottom: 1px solid silver;
 }
 
-.phonepay-form .box p {
+.phonepay-form .box p
+{
   margin: 0 0 1em 0;
 }
 
-.phonepay-form .box .amount {
+.phonepay-form .box .amount
+{
   white-space: nowrap;
 }
 
-.phonepay-form .box label {
+.phonepay-form .box label
+{
   font-size: 60%;
   font-weight: bold;
+
   color: gray;
 }
 
-.phonepay-form .box input {
+.phonepay-form .box input
+{
+  font-family: monospace;
+  font-weight: bold;
+
   width: 80%;
-  padding: 0 0.5rem;
   height: 3rem;
+  padding: 0 .5rem;
+
   text-align: center;
 }
 
-.phonepay-form .box button {
+.phonepay-form .box button
+{
+  line-height: 3rem;
+
   width: 80%;
   padding: 0;
-  line-height: 3rem;
 }
 
-.phonepay-form .box .authorize-instructions {
+.phonepay-form .box .authorize-instructions
+{
   font-size: 80%;
-  padding: 2em;
+
   margin: 0;
+  padding: 2em;
 }
 
-.phonepay-form .box .powered-by {
+.phonepay-form .box .powered-by
+{
   font-size: 50%;
-  color: gray;
+
   position: absolute;
+  right: 0;
   bottom: 0;
   left: 0;
-  right: 0;
+
+  color: gray;
 }
