@@ -81,6 +81,14 @@ var Form = React.createClass({
       step: 'confirm'
     });
   },
+  animateForm: function() {
+    $(this.refs.details.getDOMNode())
+      .velocity('transition.slideUpBigIn', {
+        duration: 500
+      });
+    $(this.refs.box.getDOMNode())
+      .velocity('transition.expandIn', 500);
+  },
   componentDidUpdate: function(prevProps, prevState) {
     if (!this.state.hidden) {
       switch (this.state.step) {
@@ -100,17 +108,9 @@ var Form = React.createClass({
       if (this.state.hidden != prevState.hidden) {
         $(this.refs.overlay.getDOMNode())
           .velocity('fadeIn', 200);
-        $(this.getDOMNode()).find('p')
-          .velocity('transition.slideUpBigIn', {
-            stagger: 100,
-            duration: 500
-          });
-        $(this.refs.box.getDOMNode())
-          .velocity('transition.expandIn', 500);
-      }
-      if (this.state.step != prevState.step) {
-        $(this.refs.box.getDOMNode())
-          .velocity('transition.expandIn', 500);
+        this.animateForm();
+      } else if (this.state.step != prevState.step) {
+        this.animateForm();
       }
     }
   },
@@ -206,7 +206,10 @@ var Form = React.createClass({
           className="box"
           >
           <h2>{options.header}</h2>
-          <p className="details">
+          <p
+            className="details"
+            ref="details"
+          >
             {options.desc} <span className="amount">({options.currency}{options.amount})</span>
           </p>
           {box}
