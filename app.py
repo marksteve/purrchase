@@ -16,10 +16,6 @@ db = StrictRedis(host=os.environ.get('REDIS_PORT_6379_TCP_ADDR'))
 def index():
   return render_template('index.html')
 
-@app.route('/opm')
-def opm():
-  return render_template('opm.html')
-
 @app.route('/demos/<demo>')
 def demos(demo):
   return render_template('demos/{}.html'.format(demo))
