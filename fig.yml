@@ -8,5 +8,17 @@ app:
     - .:/src
   command: python app.py
 
+buildjs:
+  image: tadhack
+  volumes:
+    - .:/src
+  command: watchify -t reactify static/jsx/phonepay.js -o static/js/phonepay.js -v
+
+buildcss:
+  image: tadhack
+  volumes:
+    - .:/src
+  command: watchmedo shell-command -R -p "*.css" -c "csscomb -v static/css/"
+
 redis:
   image: marksteve/redis
