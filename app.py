@@ -95,6 +95,7 @@ def charge():
   payload.update(confirm_code_sent=True)
 
   # Save confirm code assoc
+  # Expires after 15 minutes
   db.setex(
     '{}:confirm:{}'.format(subscriber_number, confirm_code),
     15 * 60,  # 15 minutes
@@ -103,7 +104,6 @@ def charge():
 
   return jsonify(**payload)
 # ==== END /charge ==== #
-
 
 # ==== /confirm ==== #
 @app.route('/confirm', methods=['POST'])
@@ -202,11 +202,11 @@ def dashboard():
     },
     {
       'item_id': 193792813712,
-      'filename': 'filename.pdf',
+      'filename': 'filename.mp3',
     },
     {
       'item_id': 290183921,
-      'filename': 'filename.pdf',
+      'filename': 'filename.jpg',
     },
   ]
   return render_template(
