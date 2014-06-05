@@ -22,14 +22,9 @@ def opm():
 # ==== /oauth ==== #
 @app.route('/oauth')
 def oauth():
-  access_token = get_access_token()
-  return access_token
-
-# this doesn't really get JUST the access token
-# returns json data of subscriber_number & access_token
-def get_access_token():
-  # Hackathon "merchant" sample details
+  return render_template('oauth.html')
   code = request.args['code']
+  # Hackathon "merchant" sample details
   data = {
     'app_id': app.config['GLOBE_APP_ID'],
     'app_secret': app.config['GLOBE_APP_SECRET'],
@@ -43,7 +38,7 @@ def get_access_token():
       'access_token',
       payload['access_token'],
     )
-    return jsonify(**payload)
+    return render_template('oauth.html')
   else:
     abort(500)
 # ==== END /oauth ==== #
