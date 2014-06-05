@@ -1,28 +1,20 @@
 # TadHack
 
-## Redis
+## Setup
 
-```bash
-$ docker run -d --name tadhack-redis marksteve/redis
-```
+1. Build
 
-## App
+  ```bash
+  $ docker build --rm -t tadhack .
+  ```
 
-### Build
+2. [Install Fig](http://orchardup.github.io/fig/install.html)
 
-```bash
-$ docker build --rm -t tadhack .
-```
+3. Run
 
-### Run
-
-```bash
-$ docker run --rm -t -i \
-  --link tadhack-redis:redis \
-  -p 5000:5000 \
-  -v `pwd`:/src tadhack \
-  /bin/bash -il
-```
+  ```bash
+  $ fig up -d
+  ```
 
 ## Widget
 
