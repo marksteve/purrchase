@@ -29466,7 +29466,11 @@ var Button = React.createClass({displayName: 'Button',
 var Form = React.createClass({displayName: 'Form',
   getInitialState: function() {
     return {
-      options: {},
+      options: {
+        header: 'PHonePay',
+        currency: 'PHP',
+        button: 'Pay with Globe Load'
+      },
       hidden: true,
       number: true,
       authorize: false,
@@ -29554,7 +29558,7 @@ var Form = React.createClass({displayName: 'Form',
             {ref:"pay",
             onClick:this.pay}
             , 
-            "Pay with Globe Load"
+            options.button
           )
         )
       );
@@ -29613,6 +29617,7 @@ var form = React.renderComponent(
 );
 
 window.pp = function(options) {
+  options = $.extend(form.state.options, options);
   form.setState({
     options: options
   });
