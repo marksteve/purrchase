@@ -29474,7 +29474,8 @@ var Form = React.createClass({displayName: 'Form',
       hidden: true,
       number: true,
       authorize: false,
-      dialogUrl: null
+      dialogUrl: null,
+      lastNumber: ''
     };
   },
   show: function(options) {
@@ -29492,6 +29493,7 @@ var Form = React.createClass({displayName: 'Form',
   pay: function() {
     var number = this.refs.number.getDOMNode().value;
     var options = this.state.options;
+    var $pay = $(this.refs.pay.getDOMNode())
     superagent
       .post('/charge')
       .send({
@@ -29505,7 +29507,10 @@ var Form = React.createClass({displayName: 'Form',
             this.showAuthorize(res.body.dialog_url);
           }
         }
+        $pay.prop('disabled', false);
       }).bind(this));
+    this.setState({lastNumber: number});
+    $pay.prop('disabled', true);
   },
   showAuthorize: function(url) {
     this.setState({
@@ -29545,10 +29550,14 @@ var Form = React.createClass({displayName: 'Form',
     if (this.state.number) {
       box.push(
         React.DOM.p(null, 
-          React.DOM.input(
-            {ref:"number",
-            type:"text",
-            placeholder:"Cellphone Number"}
+          React.DOM.label(null, 
+            "Cellphone Number",
+            React.DOM.input(
+              {ref:"number",
+              type:"text",
+              placeholder:"e.g. 9171234567",
+              defaultValue:this.state.lastNumber}
+            )
           )
         )
       );
@@ -29576,7 +29585,7 @@ var Form = React.createClass({displayName: 'Form',
             {href:this.state.dialogUrl,
             ref:"authorize",
             target:"_blank",
-            onClick:this.show}
+            onClick:(function(){this.show()}).bind(this)}
             , 
             "Authorize"
           )

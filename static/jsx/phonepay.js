@@ -34,7 +34,8 @@ var Form = React.createClass({
       hidden: true,
       number: true,
       authorize: false,
-      dialogUrl: null
+      dialogUrl: null,
+      lastNumber: ''
     };
   },
   show: function(options) {
@@ -52,6 +53,7 @@ var Form = React.createClass({
   pay: function() {
     var number = this.refs.number.getDOMNode().value;
     var options = this.state.options;
+    var $pay = $(this.refs.pay.getDOMNode())
     superagent
       .post('/charge')
       .send({
@@ -65,7 +67,10 @@ var Form = React.createClass({
             this.showAuthorize(res.body.dialog_url);
           }
         }
+        $pay.prop('disabled', false);
       }).bind(this));
+    this.setState({lastNumber: number});
+    $pay.prop('disabled', true);
   },
   showAuthorize: function(url) {
     this.setState({
@@ -105,11 +110,15 @@ var Form = React.createClass({
     if (this.state.number) {
       box.push(
         <p>
-          <input
-            ref="number"
-            type="text"
-            placeholder="Cellphone Number"
-          />
+          <label>
+            Cellphone Number
+            <input
+              ref="number"
+              type="text"
+              placeholder="e.g. 9171234567"
+              defaultValue={this.state.lastNumber}
+            />
+          </label>
         </p>
       );
       box.push(
@@ -136,7 +145,7 @@ var Form = React.createClass({
             href={this.state.dialogUrl}
             ref="authorize"
             target="_blank"
-            onClick={this.show}
+            onClick={(function(){this.show()}).bind(this)}
             >
             Authorize
           </a>
