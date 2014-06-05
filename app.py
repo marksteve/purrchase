@@ -22,7 +22,6 @@ def opm():
 # ==== /oauth ==== #
 @app.route('/oauth')
 def oauth():
-  return render_template('oauth.html')
   code = request.args['code']
   # Hackathon "merchant" sample details
   data = {
@@ -38,7 +37,7 @@ def oauth():
       'access_token',
       payload['access_token'],
     )
-    return render_template('oauth.html')
+    return render_template('oauth.html', **payload)
   else:
     abort(500)
 # ==== END /oauth ==== #
