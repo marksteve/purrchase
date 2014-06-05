@@ -1,199 +1,134 @@
-body
+*
 {
-  margin: 0;
-  padding: 0;
+  box-sizing: border-box;
 }
-button
+body, input, button
 {
-  cursor: pointer;
-}
-header
-{
-  padding: 10em 2em 0 2em;
-  padding-top: 10em;
+  font: 20px/1.5 sans-serif;
 
-  color: white;
-  border-bottom: 2px solid black;
-  background: url('../images/booklat.jpg') no-repeat center 62%;
-  background-size: cover;
-  text-shadow: 0 0 .5em black;
+  color: #666;
+}
+h1, h2, h3, button
+{
+  font-family: Montserrat, sans-serif;
 }
 h1
 {
-  font-size: 400%;
-  font-weight: normal;
-  line-height: 4rem;
-
-  position: relative;
-
   margin: 0;
-
-  text-transform: uppercase;
 }
-h1 .tagline
+h1 a
 {
-  font-size: 50%;
-  font-weight: normal;
-  line-height: 4rem;
+  color: inherit;
+}
+h2
+{
+  margin: 3rem 0 0 0;
+}
+a
+{
+  text-decoration: none;
 
-  position: absolute;
-  right: 0;
+  color: dodgerblue;
+}
+a:hover
+{
+  text-decoration: underline;
 }
 section
 {
   position: relative;
 
-  padding: 2em 500px 2em 2em;
+  max-width: 60em;
+  margin: 1em auto;
+  padding: 2rem;
+
+  background: white;
 }
-.sidebar
+.login
 {
+  line-height: 2;
+
   position: absolute;
   top: 2em;
   right: 2em;
-
-  width: 400px;
 }
-.about
+p
 {
-  font-size: 150%;
-  font-style: italic;
-
-  margin: 0;
-  padding: .5em 1em;
-
-  border: 1px solid;
+  margin: 0 0 1em 0;
 }
-section h2
+p.submit
 {
-  margin: 0 0 1.5em 0;
-  padding-bottom: .5em;
-
-  border-bottom: 1px solid;
+  padding-top: 1em;
 }
-.books
+code
 {
-  margin: 0;
+  font-size: 200%;
+}
+form
+{
+  margin-top: 1.5em;
+}
+label
+{
+  font-size: 80%;
+  line-height: 1;
+
+  color: gray;
+}
+form label input, form button
+{
+  width: 100%;
+}
+form label input,
+form button
+{
+  display: block;
+
+  height: 2em;
+  padding: 0 .5em;
+}
+.steps
+{
+  margin: 3em 0;
   padding: 0;
 
   list-style: none;
 
   letter-spacing: -.5em;
 }
-.book
+.steps li
 {
-  position: relative;
-
   display: inline-block;
-  overflow: hidden;
 
-  width: 300px;
-  height: 400px;
-  margin: 0 2em 2em 0;
+  width: 33%;
+  padding: 1em 2em;
 
-  transition: background-size .2s;
+  text-align: center;
   vertical-align: top;
-
-  color: white;
-  background: center center no-repeat;
-  background-size: 100%;
-}
-.book:hover
-{
-  background-size: 110%;
-}
-.book-details
-{
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 40%;
-  left: 0;
-
-  padding: 2em;
-
-  transition: all .2s;
-  -webkit-transform: translateY(-50%);
   letter-spacing: 0;
-
-  opacity: 0;
-  background-color: rgba(0, 0, 0, .8);
-  text-shadow: 0 0 5px black;
 }
-.book:hover .book-details
+.steps .oi
 {
-  -webkit-transform: translateY(0);
-
-  opacity: 1;
+  font-size: 400%;
 }
-.book-details h3
+.steps h3
 {
-  font-size: 120%;
-  line-height: 1;
-
-  margin: 0;
+  margin: 0 0 .5em 0;
 }
-.book-author
+.upload
 {
-  font-size: 110%;
-  font-style: italic;
-  line-height: 1;
+  color: #e74c3c;
 }
-.book-price
+.copy
 {
-  line-height: 2;
-
-  display: inline-block;
-
-  padding: 0 .5em;
-
-  border: 1px solid;
+  color: #3498db;
 }
-.book .phonepay
+.profit
 {
-  position: absolute;
-  right: 2em;
-  bottom: 2em;
+  color: #2ecc71;
 }
-.phonepay-button
+.get-started, .demos, .login-form
 {
-  font-size: 150%;
-  line-height: 2em;
-
-  padding: 0 1em;
-
-  color: white;
-  border: 0;
-  border: 1px white solid;
-  background: black;
-}
-footer
-{
-  margin: 5em 2em 2em 2em;
-  padding-top: 1em;
-
-  color: #999;
-  border-top: 1px solid;
-}
-.copyright
-{
-  margin-right: 2em;
-}
-.footer-links
-{
-  display: inline-block;
-
-  margin: 0;
-  padding: 0;
-
-  list-style: none;
-}
-.footer-links li
-{
-  display: inline-block;
-
-  margin-right: 1em;
-}
-body, input, button
-{
-  font: 16px/1.5 Garamond, serif;
+  width: 38%;
+  margin: 5em auto;
 }

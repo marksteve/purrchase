@@ -1,15 +1,38 @@
 {% extends "base.html" %}
 
 {% block content %}
-<p>
-  The easiest way to sell your digital goods.
-</p>
-<h2>Demos</h2>
-<ul>
-  <li><a href="/demos/booklat">Booklat</a></li>
-  <li><a href="/demos/opm">OPM Shop</a></li>
+
+<ul class="steps">
+  <li class="upload">
+    <span class="oi" data-glyph="cloud-upload"></span>
+    <h3>1. Upload</h3>
+    <p>
+      Upload the digital creations you want to sell
+      and set the prices.
+    </p>
+  </li>
+  <li class="copy">
+    <span class="oi" data-glyph="clipboard"></span>
+    <h3>2. Copy</h3>
+    <p>
+      Copy the snippets into your webpage.
+      This sounds more complicated than it is ;)
+    </p>
+  </li>
+  <li class="profit">
+    <span class="oi" data-glyph="dollar"></span>
+    <h3>3. Profit</h3>
+    <p>
+      That's it! No coding. No fiddling with servers.
+      Focus on creating!
+    </p>
+  </li>
 </ul>
-<h2>Get Started</h2>
+
+<div class="get-started">
+<h2>Get started in 3 minutes</h2>
+<p>Register at <a href="http://developer.globelabs.com.ph/">GlobeLabs</a> if you
+haven't already.</p>
 <form action="" method="post">
   <p>
     <label>
@@ -35,8 +58,18 @@
       <input type="text" name="globe_app_secret">
     </label>
   </p>
-  <p>
+  <p class="submit">
     <button type="submit">Sign Up</button>
   </p>
 </form>
+</div>
+
+<div class="demos">
+<h2>Demos</h2>
+<ul>
+  <li><a href="/demos/booklat">Booklat</a></li>
+  <li><a href="/demos/opm">OPM Shop</a></li>
+</ul>
+</div>
+
 {% endblock %}

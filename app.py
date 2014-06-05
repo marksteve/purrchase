@@ -174,7 +174,7 @@ def download(item_id):
 @app.route('/login', methods=['GET', 'POST'])
 def login():
   if request.method == 'POST':
-    session['subscriber_number'] = request.values['subscriber_number']
+    session['shortcode'] = request.values['shortcode']
     return redirect(url_for('dashboard'))
 
   return render_template('login.html')
@@ -185,14 +185,14 @@ def logout():
   return redirect(url_for('index'))
 
 def logged_in():
-  subscriber_number = session.get('subscriber_number')
-  if not subscriber_number:
+  shortcode = session.get('shortcode')
+  if not shortcode:
     abort(401)
-  return subscriber_number
+  return shortcode
 
 @app.route('/dashboard')
 def dashboard():
-  subscriber_number = logged_in()
+  shortcode = logged_in()
   # TODO: Get items
   # Example:
   items = [
@@ -211,13 +211,13 @@ def dashboard():
   ]
   return render_template(
     'dashboard.html',
-    subscriber_number=subscriber_number,
+    shortcode=shortcode,
     items=items,
   )
 
 @app.route('/upload', methods=['POST'])
 def upload():
-  subscriber_number = logged_in()
+  shortcode = logged_in()
 
   # TODO
   # upload file to filesystem: /var/uploads
@@ -228,14 +228,14 @@ def upload():
 
   # Save as upload of user
   db.sadd(
-    '{}:items'.format(subscriber_number),
+    '{}:items'.format(shortcode),
     item_id,
   )
 
   # Save upload details
   db.hmset(
     '{}:items:{}'.format(
-      subscriber_number,
+      shortcode,
       item_id,
     ),
     {
@@ -248,17 +248,17 @@ def upload():
 
 @app.route('/delete/<item_id>')
 def delete(item_id):
-  subscriber_number = logged_in()
+  shortcode = logged_in()
 
   # Remove from user uploads
   db.srem(
-    '{}:items'.format(subscriber_number),
+    '{}:items'.format(shortcode),
     item_id,
   )
 
   # Remove upload details
   db.delete('{}:items:{}'.format(
-    subscriber_number,
+    shortcode,
     item_id,
   ))
 
