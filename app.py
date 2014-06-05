@@ -19,6 +19,10 @@ def index():
 def opm():
   return render_template('opm.html')
 
+@app.route('/demos/<demo>')
+def demos(demo):
+  return render_template('demos/{}.html'.format(demo))
+
 # ==== /oauth ==== #
 @app.route('/oauth')
 def oauth():

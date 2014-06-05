@@ -1,141 +1,42 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Booklat</title>
-  <link rel="stylesheet" href="static/css/phonepay.css">
-  <link rel="stylesheet" href="static/css/index.css">
-</head>
-<body>
-  <header>
-    <h1>
-      Booklat
-      <span class="tagline">Books. Books. Books.</span>
-    </h1>
-  </header>
-  <section>
-    <h2>Humble Books</h2>
-    <ul class="books">
-      <li class="book" style="background-image: url('/static/images/wizzywig.png')">
-        <div class="book-details">
-        <h3>
-          Wizzywig: Portrait of a Serial Hacker
-        </h3>
-        <p class="book-author">Ed Piskor</p>
-        <p class="book-price">Php 400.00</p>
-        </div>
-        <div
-          class="phonepay"
-          data-desc="Wizzywig: Portrait of a Serial Hacker"
-          data-amount="400.00"
-        ></div>
-      </li>
-      <li class="book" style="background-image: url('/static/images/march.png')">
-        <div class="book-details">
-        <h3>
-          March: Book One
-        </h3>
-        <p class="book-author">
-          Congressman John Lewis, Andrew Aydin, and Nate Powell
-        </p>
-        <p class="book-price">Php 500.00</p>
-        </div>
-        <div
-          class="phonepay"
-          data-desc="March: Book One"
-          data-amount="500.00"
-        ></div>
-      </li>
-      <li class="book" style="background-image: url('/static/images/swordandsorcery.png')">
-        <div class="book-details">
-        <h3>
-          The Sword & Sorcery Anthology
-        </h3>
-        <p class="book-author">
-          Various, George R. R. Martin
-        </p>
-        <p class="book-price">Php 500.00</p>
-        </div>
-        <div
-          class="phonepay"
-          data-desc="The Sword & Sorcery Anthology"
-          data-amount="500.00"
-        ></div>
-      </li>
-      <li class="book" style="background-image: url('/static/images/jam.png')">
-        <div class="book-details">
-        <h3>
-          Jam
-        </h3>
-        <p class="book-author">
-          Yahtzee Croshaw
-        </p>
-        <p class="book-price">Php 500.00</p>
-        </div>
-        <div
-          class="phonepay"
-          data-desc="Jam"
-          data-amount="500.00"
-        ></div>
-      </li>
-      <li class="book" style="background-image: url('/static/images/lovecraft.png')">
-        <div class="book-details">
-        <h3>
-          Lovecraft's Monsters: Anthology
-        </h3>
-        <p class="book-author">
-          Various, Neil Gaiman. Ellen Datlow, Editor
-        </p>
-        <p class="book-price">Php 500.00</p>
-        </div>
-        <div
-          class="phonepay"
-          data-desc="Lovecraft's Monsters: Anthology"
-          data-amount="500.00"
-        ></div>
-      </li>
-    </ul>
-    <div class="sidebar">
-      <p class="about">
-        Hi there, book lover! Welcome to Booklat &mdash; A place where you
-        can get books of all sorts for reasonable prices.
-      </p>
-      <h3>Top Sellers</h3>
-      <ol>
-        <li>Wizzywig: Portrait of a Serial Hacker</li>
-        <li>March: Book One</li>
-        <li>The Sword & Sorcery Anthology</li>
-        <li>Jam</li>
-        <li>Lovecraft's Monsters: Anthology</li>
-      </ol>
-      <h3>Latest Releases</h3>
-      <ol>
-        <li>Wizzywig: Portrait of a Serial Hacker</li>
-        <li>March: Book One</li>
-        <li>The Sword & Sorcery Anthology</li>
-        <li>Jam</li>
-        <li>Lovecraft's Monsters: Anthology</li>
-      </ol>
-      <h3>Categories</h3>
-      <ol>
-        <li>Humble Books</li>
-        <li>Mystery</li>
-        <li>Scifi</li>
-        <li>Business</li>
-        <li>Comics</li>
-      </ol>
-    </div>
-  </section>
-  <footer>
-    <span class="copyright">&copy; 2014 Booklat</span>
-    <ul class="footer-links">
-      <li>FAQ</li>
-      <li>About</li>
-      <li>Terms</li>
-    </ul>
-  </footer>
-  <script src="static/js/phonepay.js"></script>
-  <script>
-    pp({header: 'Booklat', currency: 'PHP'});
-  </script>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+<p>
+  The easiest way to sell your digital goods.
+</p>
+<h2>Demos</h2>
+<ul>
+  <li><a href="/demos/booklat">Booklat</a></li>
+  <li><a href="/demos/opm">OPM Shop</a></li>
+</ul>
+<h2>Get Started</h2>
+<form action="" method="post">
+  <p>
+    <label>
+      Store Name
+      <input type="text" name="store_name">
+    </label>
+  </p>
+  <p>
+    <label>
+      Globe Shortcode
+      <input type="text" name="globe_shortcode">
+    </label>
+  </p>
+  <p>
+    <label>
+      Globe App ID
+      <input type="text" name="globe_app_id">
+    </label>
+  </p>
+  <p>
+    <label>
+      Globe App Secret
+      <input type="text" name="globe_app_secret">
+    </label>
+  </p>
+  <p>
+    <button type="submit">Sign Up</button>
+  </p>
+</form>
+{% endblock %}

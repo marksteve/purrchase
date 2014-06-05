@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Montserrat:400,700">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css">
+  <title>PHonePay</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body, input, button {
+      font: 20px/1.5 sans-serif;
+      color: #666;
+    }
+    h1, h2, h3, button {
+      font-family: Montserrat, sans-serif;
+    }
+    h1 {
+      margin: 0;
+    }
+    h2 {
+      margin: 3rem 0 0 0;
+    }
+    a {
+      text-decoration: none;
+      color: dodgerblue;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    section {
+      background: white;
+      max-width: 30em;
+      margin: 1em auto;
+      padding: 2rem;
+    }
+    p {
+      margin-bottom: 1.5em;
+    }
+    code {
+      font-size: 200%;
+    }
+    form {
+      width: 80%;
+      padding: 0 2em;
+      margin-top: 1.5em;
+      border-top: 5px solid dodgerblue;
+    }
+    label {
+      line-height: 1;
+      font-size: 80%;
+      color: gray;
+    }
+    label input, button {
+      width: 100%;
+    }
+    label input,
+    button {
+      display: block;
+      height: 2em;
+      padding: 0 0.5em;
+    }
+    button {
+      margin-top: 1.5em;
+    }
+  </style>
+</head>
+<body>
+  <section>
+    <h1>PhonePay.PH</h1>
+    {% block content %}{% endblock %}
+  </section>
+</body>
+</html>
