@@ -73,6 +73,7 @@ def charge():
   # check access token
   if not access_token:
     return jsonify(
+      needs_authorization=True,
       dialog_url=const.G_DIALOG.format(app.config['GLOBE_APP_ID']),
     )
 
@@ -107,7 +108,9 @@ def charge():
   if res.ok:
     #: Maybe log a little?
     # r.zadd(msisdn, time.localtime(), amount)
-    return jsonify(**res.json())
+    payload = res.json()
+    payload.update(confirm_code_sent=True)
+    return jsonify(**payload)
   else:
     abort(500)
 

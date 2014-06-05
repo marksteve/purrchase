@@ -29472,8 +29472,7 @@ var Form = React.createClass({displayName: 'Form',
         button: 'Pay with Globe Load'
       },
       hidden: true,
-      number: true,
-      authorize: false,
+      step: 'number',
       dialogUrl: null,
       lastNumber: ''
     };
@@ -29483,8 +29482,7 @@ var Form = React.createClass({displayName: 'Form',
     this.setState({
       options: options,
       hidden: false,
-      number: true,
-      authorize: false
+      step: 'number'
     });
   },
   hide: function() {
@@ -29501,11 +29499,11 @@ var Form = React.createClass({displayName: 'Form',
         amount: options.amount
       })
       .end((function(res) {
-        if (res.body.ok) {
-        } else {
-          if (res.body.dialog_url) {
-            this.showAuthorize(res.body.dialog_url);
-          }
+        if (res.body.confirm_code_sent) {
+          this.showConfirm();
+        }
+        if (res.body.needs_authorization) {
+          this.showAuthorize(res.body.dialog_url);
         }
         $pay.prop('disabled', false);
       }).bind(this));
@@ -29514,27 +29512,43 @@ var Form = React.createClass({displayName: 'Form',
   },
   showAuthorize: function(url) {
     this.setState({
-      number: false,
-      authorize: true,
+      step: 'authorize',
       dialogUrl: url
+    });
+  },
+  showConfirm: function() {
+    this.setState({
+      step: 'confirm'
     });
   },
   componentDidUpdate: function(prevProps, prevState) {
     if (!this.state.hidden) {
-      if (this.state.number) {
-        setTimeout((function() {
-          $(this.refs.number.getDOMNode())
-            .focus();
-        }).bind(this), 1);
+      switch (this.state.step) {
+        case 'number':
+          setTimeout((function() {
+            $(this.refs.number.getDOMNode())
+              .focus();
+          }).bind(this), 1);
+          break;
+        case 'confirm':
+          setTimeout((function() {
+            $(this.refs.confirmCode.getDOMNode())
+              .focus();
+          }).bind(this), 1);
+          break;
       }
       if (this.state.hidden != prevState.hidden) {
+        $(this.refs.overlay.getDOMNode())
+          .velocity('fadeIn', 200);
         $(this.getDOMNode()).find('p')
           .velocity('transition.slideUpBigIn', {
             stagger: 100,
             duration: 500
           });
-        $(this.refs.overlay.getDOMNode())
-          .velocity('fadeIn', 200);
+        $(this.refs.box.getDOMNode())
+          .velocity('transition.expandIn', 500);
+      }
+      if (this.state.step != prevState.step) {
         $(this.refs.box.getDOMNode())
           .velocity('transition.expandIn', 500);
       }
@@ -29547,50 +29561,78 @@ var Form = React.createClass({displayName: 'Form',
     });
     var options = this.state.options;
     var box = [];
-    if (this.state.number) {
-      box.push(
-        React.DOM.p(null, 
-          React.DOM.label(null, 
-            "Cellphone Number",
-            React.DOM.input(
-              {ref:"number",
-              type:"text",
-              placeholder:"e.g. 9171234567",
-              defaultValue:this.state.lastNumber}
+    switch (this.state.step) {
+      case 'number':
+        box.push(
+          React.DOM.p(null, 
+            React.DOM.label(null, 
+              "Cellphone Number",
+              React.DOM.input(
+                {key:"number",
+                ref:"number",
+                type:"text",
+                placeholder:"e.g. 9171234567",
+                defaultValue:this.state.lastNumber}
+              )
             )
           )
-        )
-      );
-      box.push(
-        React.DOM.p(null, 
-          React.DOM.button(
-            {ref:"pay",
-            onClick:this.pay}
-            , 
-            options.button
+        );
+        box.push(
+          React.DOM.p(null, 
+            React.DOM.button(
+              {ref:"pay",
+              onClick:this.pay}
+              , 
+              options.button
+            )
           )
-        )
-      );
-    }
-    if (this.state.authorize) {
-      box.push(
-        React.DOM.p( {className:"authorize-instructions"}, 
-          "Hello new user! Please authorize"+' '+
-          "with Globe first to proceed."
-        )
-      );
-      box.push(
-        React.DOM.p(null, 
-          React.DOM.a(
-            {href:this.state.dialogUrl,
-            ref:"authorize",
-            target:"_blank",
-            onClick:(function(){this.show()}).bind(this)}
-            , 
-            "Authorize"
+        );
+        break;
+      case 'authorize':
+        box.push(
+          React.DOM.p( {className:"authorize-instructions"}, 
+            "Hello new user! Please authorize"+' '+
+            "with Globe first to proceed."
           )
-        )
-      );
+        );
+        box.push(
+          React.DOM.p(null, 
+            React.DOM.a(
+              {href:this.state.dialogUrl,
+              ref:"authorize",
+              target:"_blank",
+              onClick:(function(){this.show()}).bind(this)}
+              , 
+              "Authorize"
+            )
+          )
+        );
+        break;
+      case 'confirm':
+        box.push(
+          React.DOM.p(null, 
+            React.DOM.label(null, 
+              "Confirmation Code",
+              React.DOM.input(
+                {key:"confirmCode",
+                ref:"confirmCode",
+                type:"text",
+                placeholder:"e.g. 123456"}
+              )
+            )
+          )
+        );
+        box.push(
+          React.DOM.p(null, 
+            React.DOM.button(
+              {ref:"confirm",
+              onClick:this.confirm}
+              , 
+              "Confirm Payment"
+            )
+          )
+        );
+        break;
     }
     return (
       React.DOM.div( {className:className}, 
