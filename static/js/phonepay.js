@@ -29474,7 +29474,8 @@ var Form = React.createClass({displayName: 'Form',
       hidden: true,
       step: 'number',
       dialogUrl: null,
-      lastNumber: ''
+      downloadUrl: null,
+      number: ''
     };
   },
   show: function(options) {
@@ -29491,7 +29492,7 @@ var Form = React.createClass({displayName: 'Form',
   pay: function() {
     var number = this.refs.number.getDOMNode().value;
     var options = this.state.options;
-    var $pay = $(this.refs.pay.getDOMNode())
+    var $pay = $(this.refs.pay.getDOMNode());
     superagent
       .post('/charge')
       .send({
@@ -29507,7 +29508,7 @@ var Form = React.createClass({displayName: 'Form',
         }
         $pay.prop('disabled', false);
       }).bind(this));
-    this.setState({lastNumber: number});
+    this.setState({number: number});
     $pay.prop('disabled', true);
   },
   showAuthorize: function(url) {
@@ -29521,6 +29522,21 @@ var Form = React.createClass({displayName: 'Form',
       step: 'confirm'
     });
   },
+  confirm: function() {
+    var confirmCode = this.refs.confirmCode.getDOMNode().value;
+    var $confirm = $(this.refs.confirm.getDOMNode());
+    superagent
+      .post('/confirm')
+      .send({
+        subscriber_number: this.state.number,
+        confirm_code: confirmCode
+      })
+      .end((function(res) {
+        this.showDownload(res.body.download_url);
+        $confirm.prop('disabled', false);
+      }).bind(this));
+    $confirm.prop('disabled', true);
+  },
   animateForm: function() {
     $(this.refs.details.getDOMNode())
       .velocity('transition.slideUpBigIn', {
@@ -29528,6 +29544,12 @@ var Form = React.createClass({displayName: 'Form',
       });
     $(this.refs.box.getDOMNode())
       .velocity('transition.expandIn', 500);
+  },
+  showDownload: function(url) {
+    this.setState({
+      step: 'download',
+      downloadUrl: url
+    });
   },
   componentDidUpdate: function(prevProps, prevState) {
     if (!this.state.hidden) {
@@ -29564,7 +29586,7 @@ var Form = React.createClass({displayName: 'Form',
     switch (this.state.step) {
       case 'number':
         box.push(
-          React.DOM.p(null, 
+          React.DOM.p( {key:"number"}, 
             React.DOM.label(null, 
               "Cellphone Number",
               React.DOM.input(
@@ -29572,13 +29594,13 @@ var Form = React.createClass({displayName: 'Form',
                 ref:"number",
                 type:"text",
                 placeholder:"e.g. 9171234567",
-                defaultValue:this.state.lastNumber}
+                defaultValue:this.state.number}
               )
             )
           )
         );
         box.push(
-          React.DOM.p(null, 
+          React.DOM.p( {key:"pay"}, 
             React.DOM.button(
               {ref:"pay",
               onClick:this.pay}
@@ -29590,13 +29612,16 @@ var Form = React.createClass({displayName: 'Form',
         break;
       case 'authorize':
         box.push(
-          React.DOM.p( {className:"authorize-instructions"}, 
+          React.DOM.p(
+            {key:"instructions",
+            className:"authorize-instructions"}
+            , 
             "Hello new user! Please authorize"+' '+
             "with Globe first to proceed."
           )
         );
         box.push(
-          React.DOM.p(null, 
+          React.DOM.p( {key:"authorize"}, 
             React.DOM.a(
               {href:this.state.dialogUrl,
               ref:"authorize",
@@ -29610,12 +29635,11 @@ var Form = React.createClass({displayName: 'Form',
         break;
       case 'confirm':
         box.push(
-          React.DOM.p(null, 
+          React.DOM.p( {key:"confirmCode"}, 
             React.DOM.label(null, 
               "Confirmation Code",
               React.DOM.input(
-                {key:"confirmCode",
-                ref:"confirmCode",
+                {ref:"confirmCode",
                 type:"text",
                 placeholder:"e.g. 123456"}
               )
@@ -29623,12 +29647,26 @@ var Form = React.createClass({displayName: 'Form',
           )
         );
         box.push(
-          React.DOM.p(null, 
+          React.DOM.p( {key:"confirm"}, 
             React.DOM.button(
               {ref:"confirm",
               onClick:this.confirm}
               , 
               "Confirm Payment"
+            )
+          )
+        );
+        break;
+      case 'download':
+        box.push(
+          React.DOM.p(
+            {className:"download",
+            key:"download"}
+            , 
+            React.DOM.a(
+              {href:this.state.downloadUrl}
+              , 
+              React.DOM.button(null, "Download")
             )
           )
         );

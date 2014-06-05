@@ -34,7 +34,8 @@ var Form = React.createClass({
       hidden: true,
       step: 'number',
       dialogUrl: null,
-      lastNumber: ''
+      downloadUrl: null,
+      number: ''
     };
   },
   show: function(options) {
@@ -51,7 +52,7 @@ var Form = React.createClass({
   pay: function() {
     var number = this.refs.number.getDOMNode().value;
     var options = this.state.options;
-    var $pay = $(this.refs.pay.getDOMNode())
+    var $pay = $(this.refs.pay.getDOMNode());
     superagent
       .post('/charge')
       .send({
@@ -67,7 +68,7 @@ var Form = React.createClass({
         }
         $pay.prop('disabled', false);
       }).bind(this));
-    this.setState({lastNumber: number});
+    this.setState({number: number});
     $pay.prop('disabled', true);
   },
   showAuthorize: function(url) {
@@ -81,6 +82,21 @@ var Form = React.createClass({
       step: 'confirm'
     });
   },
+  confirm: function() {
+    var confirmCode = this.refs.confirmCode.getDOMNode().value;
+    var $confirm = $(this.refs.confirm.getDOMNode());
+    superagent
+      .post('/confirm')
+      .send({
+        subscriber_number: this.state.number,
+        confirm_code: confirmCode
+      })
+      .end((function(res) {
+        this.showDownload(res.body.download_url);
+        $confirm.prop('disabled', false);
+      }).bind(this));
+    $confirm.prop('disabled', true);
+  },
   animateForm: function() {
     $(this.refs.details.getDOMNode())
       .velocity('transition.slideUpBigIn', {
@@ -88,6 +104,12 @@ var Form = React.createClass({
       });
     $(this.refs.box.getDOMNode())
       .velocity('transition.expandIn', 500);
+  },
+  showDownload: function(url) {
+    this.setState({
+      step: 'download',
+      downloadUrl: url
+    });
   },
   componentDidUpdate: function(prevProps, prevState) {
     if (!this.state.hidden) {
@@ -124,7 +146,7 @@ var Form = React.createClass({
     switch (this.state.step) {
       case 'number':
         box.push(
-          <p>
+          <p key="number">
             <label>
               Cellphone Number
               <input
@@ -132,13 +154,13 @@ var Form = React.createClass({
                 ref="number"
                 type="text"
                 placeholder="e.g. 9171234567"
-                defaultValue={this.state.lastNumber}
+                defaultValue={this.state.number}
               />
             </label>
           </p>
         );
         box.push(
-          <p>
+          <p key="pay">
             <button
               ref="pay"
               onClick={this.pay}
@@ -150,13 +172,16 @@ var Form = React.createClass({
         break;
       case 'authorize':
         box.push(
-          <p className="authorize-instructions">
+          <p
+            key="instructions"
+            className="authorize-instructions"
+            >
             Hello new user! Please authorize
             with Globe first to proceed.
           </p>
         );
         box.push(
-          <p>
+          <p key="authorize">
             <a
               href={this.state.dialogUrl}
               ref="authorize"
@@ -170,11 +195,10 @@ var Form = React.createClass({
         break;
       case 'confirm':
         box.push(
-          <p>
+          <p key="confirmCode">
             <label>
               Confirmation Code
               <input
-                key="confirmCode"
                 ref="confirmCode"
                 type="text"
                 placeholder="e.g. 123456"
@@ -183,13 +207,27 @@ var Form = React.createClass({
           </p>
         );
         box.push(
-          <p>
+          <p key="confirm">
             <button
               ref="confirm"
               onClick={this.confirm}
               >
               Confirm Payment
             </button>
+          </p>
+        );
+        break;
+      case 'download':
+        box.push(
+          <p
+            className="download"
+            key="download"
+            >
+            <a
+              href={this.state.downloadUrl}
+              >
+              <button>Download</button>
+            </a>
           </p>
         );
         break;
