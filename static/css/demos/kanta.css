@@ -1,0 +1,182 @@
+@import url(http://fonts.googleapis.com/css?family=Black+Ops+One);
+body {
+  margin: 0;
+  padding: 0;
+}
+button {
+  cursor: pointer;
+}
+header {
+  font-family: 'Black Ops One', cursive;
+
+  padding: 10em 2em 0 2em;
+  padding-top: 10em;
+
+  color: white;
+  border-bottom: 2px solid black;
+  background: url('https://s3.amazonaws.com/ooomf-com-files/6Icr9fARMmTjTHqTzK8z_DSC_0123.jpg') no-repeat center 62%;
+  background-size: cover;
+  text-shadow: 0 0 .5em black;
+}
+h1 {
+  font-size: 400%;
+  font-weight: normal;
+  line-height: 4rem;
+
+  position: relative;
+
+  margin: 0;
+
+  text-transform: uppercase;
+}
+h1 .tagline {
+  font-size: 50%;
+  font-weight: normal;
+  line-height: 4rem;
+
+  position: absolute;
+  right: 0;
+}
+section {
+  position: relative;
+
+  padding: 2em 500px 2em 2em;
+}
+.sidebar {
+  position: absolute;
+  top: 2em;
+  right: 2em;
+
+  width: 400px;
+}
+.about {
+  font-size: 150%;
+  font-style: italic;
+
+  margin: 0;
+  padding: .5em 1em;
+
+  border: 1px solid;
+}
+.sponsor {
+  width: 400px;
+}
+
+section h2 {
+  margin: 0 0 1.5em 0;
+  padding-bottom: .5em;
+
+  border-bottom: 1px solid;
+}
+.books {
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+
+  letter-spacing: -.5em;
+}
+.book {
+  position: relative;
+
+  display: inline-block;
+  overflow: hidden;
+
+  width: 300px;
+  height: 300px;
+  margin: 0 2em 2em 0;
+
+  transition: background-size .2s;
+  vertical-align: top;
+  letter-spacing: 0;
+
+  color: white;
+  background: center center no-repeat;
+  background-size: 100%;
+}
+.book:hover {
+  background-size: 110%;
+}
+.book-details {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 40%;
+  left: 0;
+
+  padding: 2em;
+
+  transition: all .2s;
+  -webkit-transform: translateY(-50%);
+
+  opacity: 0;
+  background-color: rgba(0, 0, 0, .8);
+  text-shadow: 0 0 5px black;
+}
+.book:hover .book-details {
+  -webkit-transform: translateY(0);
+
+  opacity: 1;
+}
+.book-details h3 {
+  font-size: 120%;
+  line-height: 1;
+
+  margin: 0;
+}
+.book-author {
+  font-size: 110%;
+  font-style: italic;
+  line-height: 1;
+}
+.book-price {
+  line-height: 2;
+
+  display: inline-block;
+
+  padding: 0 .5em;
+
+  border: 1px solid;
+}
+.book .phonepay {
+  position: absolute;
+  right: 2em;
+  bottom: 2em;
+}
+.phonepay-button {
+  font-size: 150%;
+  line-height: 2em;
+
+  padding: 0 1em;
+
+  color: white;
+  border: 0;
+  border: 1px white solid;
+  background: black;
+}
+footer {
+  margin: 5em 2em 2em 2em;
+  padding-top: 1em;
+
+  color: #999;
+  border-top: 1px solid;
+}
+.copyright {
+  margin-right: 2em;
+}
+.footer-links {
+  display: inline-block;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+.footer-links li {
+  display: inline-block;
+
+  margin-right: 1em;
+}
+body, input, button {
+  font: 16px/1.5 Garamond, serif;
+}
