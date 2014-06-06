@@ -154,7 +154,6 @@ def confirm():
   amount = db.get(confirm_key)
   if not amount:
     abort(400)
-  db.delete(confirm_key)
 
   # Get access token
   access_token = db.hget(
@@ -198,6 +197,9 @@ def confirm():
       'amount': amount,
     },
   )
+
+  # Delete confirm key
+  db.delete(confirm_key)
 
   # TODO:
   # Retrieve download url
