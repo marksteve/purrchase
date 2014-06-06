@@ -1,39 +1,35 @@
-{% extends "base.html" %}
+<!doctype html>
+<html>
+<head>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Montserrat:400,700">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css">
+  <link rel="stylesheet" href="/static/css/open-iconic.min.css">
+  <link rel="stylesheet" href="/static/css/base.css">
+  <link rel="stylesheet" href="/static/css/index.css">
+  <title>PhonePay</title>
+</head>
+<body>
 
-{% block content %}
+<header>
 
-<ul class="steps">
-  <li class="upload">
-    <span class="oi" data-glyph="cloud-upload"></span>
-    <h3>1. Upload</h3>
-    <p>
-      Upload the digital creations you want to sell
-      and set the prices.
-    </p>
-  </li>
-  <li class="copy">
-    <span class="oi" data-glyph="clipboard"></span>
-    <h3>2. Copy</h3>
-    <p>
-      Copy the snippets into your webpage.
-      This sounds more complicated than it is ;)
-    </p>
-  </li>
-  <li class="profit">
-    <span class="oi" data-glyph="dollar"></span>
-    <h3>3. Profit</h3>
-    <p>
-      That's it! No coding. No fiddling with servers.
-      Focus on creating!
-    </p>
-  </li>
-</ul>
+<div class="logo">
+  <h1><a href="/">PhonePay</a></h1>
+  <p>
+    The easiest way to sell your digital goods.
+  </p>
+</div>
+
+<div class="login">
+  <small>
+    Already a user? <a href="/login">Login.</a>
+  </small>
+</div>
 
 <div class="get-started">
-<h2>Get started in 3 minutes</h2>
-<p>Register at <a href="http://developer.globelabs.com.ph/">GlobeLabs</a> if you
-haven't already.</p>
 <form action="" method="post">
+  <h2>Get started in 3 minutes</h2>
+  <p>Register at <a href="http://developer.globelabs.com.ph/">GlobeLabs</a> if you
+  haven't already.</p>
   <p>
     <label>
       Store Name
@@ -64,12 +60,46 @@ haven't already.</p>
 </form>
 </div>
 
-<div class="demos">
+<div class="steps">
+<ul>
+  <li class="upload">
+    <span class="oi" data-glyph="cloud-upload"></span>
+    <h3>1. Upload</h3>
+    <p>
+      Upload the digital creations you want to sell
+      and set the prices.
+    </p>
+  </li>
+  <li class="copy">
+    <span class="oi" data-glyph="clipboard"></span>
+    <h3>2. Copy</h3>
+    <p>
+      Copy the snippets into your webpage.
+      This sounds more complicated than it is ;)
+    </p>
+  </li>
+  <li class="profit">
+    <span class="oi" data-glyph="dollar"></span>
+    <h3>3. Profit</h3>
+    <p>
+      That's it! No coding. No fiddling with servers.
+      Focus on creating!
+    </p>
+  </li>
+</ul>
+</div>
+
+</header>
+
+<section class="demos">
+<div>
 <h2>Demos</h2>
 <ul>
   <li><a href="/demos/booklat">Booklat</a></li>
   <li><a href="/demos/opm">OPM Shop</a></li>
 </ul>
 </div>
+</section>
 
-{% endblock %}
+</body>
+</html>

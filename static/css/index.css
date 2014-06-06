@@ -1,76 +1,65 @@
-* {
-  box-sizing: border-box;
-}
-body, input, button {
-  font: 20px/1.5 sans-serif;
-
-  color: #666;
-}
-h1, h2, h3, button {
-  font-family: Montserrat, sans-serif;
-}
-h1 {
-  margin: 0;
-}
-h1 a {
-  color: inherit;
-}
-h2 {
-  margin: 3rem 0 0 0;
-}
-a {
-  text-decoration: none;
-
-  color: dodgerblue;
-}
-a:hover {
-  text-decoration: underline;
-}
-section {
+header {
   position: relative;
 
-  max-width: 60em;
-  margin: 1em auto;
-  padding: 2rem;
+  height: 1300px;
+
+  background: url(../images/bg.jpg) no-repeat right top;
+  background-size: 2000px;
+}
+.logo {
+  position: absolute;
+  top: 2em;
+  right: 30em;
+
+  width: 20em;
+
+  color: white;
+  text-shadow: 0 0 .5em black;
+}
+.login {
+  right: 10em;
+
+  display: inline-block;
+
+  padding: 0 1em;
+
+  color: white;
+  border: 1px solid;
+  text-shadow: 0 0 .5em black;
+}
+.login a {
+  font-weight: bold;
+
+  color: white;
+}
+.get-started {
+  position: absolute;
+  top: 10em;
+  right: 10em;
+
+  width: 40em;
+}
+.get-started h2 {
+  margin: 0;
+}
+.get-started form {
+  width: 62%;
+  margin: 0 auto;
+  padding: 2em;
 
   background: white;
 }
-.login {
-  line-height: 2;
-
-  position: absolute;
-  top: 2em;
-  right: 2em;
-}
-p {
-  margin: 0 0 1em 0;
-}
-p.submit {
-  padding-top: 1em;
-}
-code {
-  font-size: 200%;
-}
-form {
-  margin-top: 1.5em;
-}
-label {
-  font-size: 80%;
-  line-height: 1;
-
-  color: gray;
-}
-form label input, form button {
-  width: 100%;
-}
-form label input, form button {
-  display: block;
-
-  height: 2em;
-  padding: 0 .5em;
-}
 .steps {
-  margin: 3em 0;
+  position: absolute;
+  bottom: 0;
+
+  width: 100%;
+  padding: 5em 0 7em 0;
+
+  background: rgba(255, 255, 255, .9);
+}
+.steps ul {
+  margin: 0;
   padding: 0;
 
   list-style: none;
@@ -81,7 +70,6 @@ form label input, form button {
   display: inline-block;
 
   width: 33%;
-  padding: 1em 2em;
 
   text-align: center;
   vertical-align: top;
@@ -102,7 +90,20 @@ form label input, form button {
 .profit {
   color: #2ecc71;
 }
-.get-started, .demos, .login-form {
-  width: 38%;
-  margin: 5em auto;
+.steps p {
+  width: 20em;
+  margin: 0 auto;
+}
+.demos {
+  padding: 3em 0 5em 0;
+
+  background: #333;
+}
+.demos,
+.demos a {
+  color: white;
+}
+.demos > div {
+  width: 30em;
+  margin: 0 auto;
 }

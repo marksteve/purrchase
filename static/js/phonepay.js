@@ -29697,7 +29697,7 @@ var Form = React.createClass({displayName: 'Form',
           ),
           box,
           React.DOM.p( {className:"powered-by"}, 
-            "Powered by PHonePay"
+            "Powered by PhonePay"
           )
         )
       )

@@ -1,0 +1,85 @@
+* {
+  box-sizing: border-box;
+
+  text-rendering: optimizeLegibility;
+}
+body, input, button {
+  font: 16px/1.5 Open Sans, sans-serif;
+
+  color: #666;
+}
+h1, h2, h3, button {
+  font-family: Montserrat, sans-serif;
+}
+h1 {
+  line-height: 1;
+
+  margin: 0;
+}
+h1 a {
+  color: inherit;
+}
+h1 a:hover {
+  text-decoration: none;
+}
+h2 {
+  margin: 3rem 0 0 0;
+}
+a {
+  text-decoration: none;
+
+  color: dodgerblue;
+}
+a:hover {
+  text-decoration: underline;
+}
+p {
+  margin: 0 0 1em 0;
+}
+p.submit {
+  padding-top: 1em;
+}
+code {
+  font-size: 200%;
+}
+form {
+  margin-top: 1.5em;
+}
+label {
+  font-size: 80%;
+  line-height: 1;
+
+  color: gray;
+}
+input, button {
+  padding: 0 .5em;
+}
+input {
+  height: 2em;
+}
+button {
+  line-height: 2em;
+
+  color: white;
+  border: 0;
+  background: dodgerblue;
+}
+form label input, form button {
+  display: block;
+
+  width: 100%;
+}
+.page {
+  position: relative;
+
+  max-width: 40em;
+  margin: 1em auto;
+  padding: 2rem;
+}
+.login {
+  line-height: 2;
+
+  position: absolute;
+  top: 2em;
+  right: 2em;
+}

@@ -257,7 +257,7 @@ var Form = React.createClass({
           </p>
           {box}
           <p className="powered-by">
-            Powered by PHonePay
+            Powered by PhonePay
           </p>
         </div>
       </div>
