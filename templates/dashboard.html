@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block css %}
+<style>
+.items {
+  margin: 0;
+  padding: 0 0 10em 0;
+  list-style: none;
+}
+.items li {
+  margin-bottom: 1em;
+  position: relative;
+  padding-bottom: 1em;
+  border-bottom: 1px solid #eee;
+}
+pre {
+  position: absolute;
+  top: -0.5em;
+  left: 25%;
+  right: 3em;
+  background: white;
+  margin: 0;
+  padding: 0.5em 1em;
+  border: 1px solid;
+  display: none;
+}
+.items li:hover pre {
+  display: block;
+  z-index: 10;
+}
+code {
+  margin: 0;
+  padding: 0;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<h2>Dashboard</h2>
+<form action="/info" method="post">
+  <h3>Settings</h3>
+  <p>
+    <label>
+      Store Name
+      <input type="text" name="store_name" value="{{ merchant.store_name }}">
+    </label>
+  </p>
+  <p>
+    <label>
+      Globe Shortcode
+      <input type="text" name="globe_shortcode" value="{{ merchant.globe_shortcode }}">
+    </label>
+  </p>
+  <p>
+    <label>
+      Globe App ID
+      <input type="text" name="globe_app_id" value="{{ merchant.globe_app_id }}">
+    </label>
+  </p>
+  <p>
+    <label>
+      Globe App Secret
+      <input type="text" name="globe_app_secret" value="{{ merchant.globe_app_secret }}">
+    </label>
+  </p>
+  <p class="submit">
+    <button type="submit">Save Changes</button>
+  </p>
+</p>
+<h3>Items</h3>
+<ul class="items">
+{% for item in items %}
+  <li>
+    {{ item.filename }}
+    <pre><code>{{ """<div
+  class=\"payload\"
+  data-id=\"{}\"
+  data-desc=\"Item Description\"
+  data-amount=\"10.00\"
+></div>""".format(item.item_id)|escape
+}}</code></pre>
+  </li>
+{% endfor %}
+</ul>
+{% endblock %}

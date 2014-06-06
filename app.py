@@ -253,11 +253,15 @@ def logged_in():
   shortcode = session.get('shortcode')
   if not shortcode:
     abort(401)
-  return shortcode
+  merchant = db.hgetall(shortcode)
+  if not merchant:
+    abort(401)
+  merchant.update(globe_shortcode=shortcode)
+  return merchant
 
 @app.route('/dashboard')
 def dashboard():
-  shortcode = logged_in()
+  merchant = logged_in()
   # TODO: Get items
   # Example:
   items = [
@@ -276,13 +280,13 @@ def dashboard():
   ]
   return render_template(
     'dashboard.html',
-    shortcode=shortcode,
+    merchant=merchant,
     items=items,
   )
 
 @app.route('/upload', methods=['POST'])
 def upload():
-  shortcode = logged_in()
+  merchant = logged_in()
 
   # TODO
   # upload file to filesystem: /var/uploads
@@ -313,7 +317,7 @@ def upload():
 
 @app.route('/delete/<item_id>')
 def delete(item_id):
-  shortcode = logged_in()
+  merchant = logged_in()
 
   # Remove from user uploads
   db.srem(
