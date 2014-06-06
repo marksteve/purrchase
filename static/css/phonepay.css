@@ -1,5 +1,9 @@
 * {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+
+       -o-box-sizing: border-box;
 }
 .phonepay-form {
   position: fixed;
@@ -84,6 +88,9 @@
   padding: 0 .5rem;
 
   text-align: center;
+
+  border: 1px solid silver;
+  border-radius: 0;
 }
 .phonepay-form .box button {
   line-height: 3rem;

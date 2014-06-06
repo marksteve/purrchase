@@ -1,6 +1,9 @@
 * {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
 
+       -o-box-sizing: border-box;
   text-rendering: optimizeLegibility;
 }
 body, input, button {
@@ -56,6 +59,9 @@ input, button {
 }
 input {
   height: 2em;
+
+  border: 1px solid silver;
+  border-radius: 0;
 }
 button {
   line-height: 2em;
