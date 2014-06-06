@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>InstaBuy!</title>
+  <link rel="stylesheet" href="/static/css/phonepay.css">
+</head>
+<body>
+
+  <script src="/static/js/phonepay.js"></script>
+  <script>
+    pp({show: true, desc:{{filename|tojson}}, shortcode: {{shortcode|tojson}}});
+  </script>
+</body>
+</html>

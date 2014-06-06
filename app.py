@@ -233,6 +233,15 @@ def download(shortcode, item_id):
   ))
   return send_file(item['filepath'], as_attachment=True)
 
+@app.route('/instabuy/<shortcode>/<item_id>')
+def instabuy(shortcode, item_id):
+  item=db.hgetall('{}:items:{}'.format(
+    shortcode,
+    item_id,
+  ))
+  return render_template('instabuy.html',shortcode=shortcode,item_id=item_id,**item)
+
+
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
   shortcode = request.form['globe_shortcode']
@@ -332,6 +341,8 @@ def upload():
     {
       'filename': filename,
       'filepath': filepath,
+      'desc'    : request.form['description'],
+      'price'   : request.form['price']
     },
   )
   flash('Uploaded!')

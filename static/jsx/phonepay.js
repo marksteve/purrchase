@@ -298,7 +298,9 @@ window.pp = function(options) {
       form.setState({
         options: options
       });
+      if (options.show) {
+        form.show(options);
+      }
       renderButtons();
     });
 };
-

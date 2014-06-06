@@ -29738,10 +29738,12 @@ window.pp = function(options) {
       form.setState({
         options: options
       });
+      if (options.show) {
+        form.show(options);
+      }
       renderButtons();
     });
 };
-
 
 },{"./jquery.velocity.min":154,"./velocity.ui":156,"jquery":1,"react/addons":2,"superagent":151}],156:[function(require,module,exports){
 /***************

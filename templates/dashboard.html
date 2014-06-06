@@ -105,8 +105,27 @@ background-color: #FFBABA;
 </div>
 {% endif %}
 <form action="upload" method="post" enctype="multipart/form-data">
-  <input type="file" name="file">
-  <input type="submit" value=Upload>
+  <p>
+    <label>
+      Description
+      <input type="text" name="description" value="">
+    </label>
+  </p>
+  <p>
+    <label>
+      Price
+      <input type="text" name="price" value="">
+    </label>
+  </p>
+  <p>
+    <label>
+      Upload
+      <input type="file" name="file" value="">
+    </label>
+  </p>
+  <p class="submit">
+    <input type="submit" value="Upload">
+  </p>
 </form>
 <ul class="items">
 {% for item in items %}
