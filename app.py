@@ -280,7 +280,7 @@ def dashboard():
   ]
   return render_template(
     'dashboard.html',
-    integration="""<script src="https://phonepay.marksteve.com/static/js/phonepay.js"></script>
+    integration="""<script src="http://phonepay.marksteve.com/static/js/phonepay.js"></script>
 <script>pp({{shortcode: {}}});</script>""",
     item_code="""<div
   class="payload"
