@@ -5,12 +5,18 @@ from random import randint
 import const
 import requests
 from flask import (abort, Flask, json, jsonify, redirect, render_template,
-                   request, session, url_for)
+                   request, session, url_for, flash, get_flashed_messages, send_file)
+from werkzeug.utils import secure_filename
 from redis import StrictRedis
 from simpleflake import simpleflake
 
+# For upload stuff
+UPLOAD_FOLDER = 'uploads'
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+
 app = Flask(__name__)
 app.config.from_pyfile('config.py')
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 db = StrictRedis(host=os.environ.get('REDIS_PORT_6379_TCP_ADDR'))
 
 @app.route('/')
@@ -218,10 +224,14 @@ def confirm():
   )
 # ==== END /confirm ==== #
 
-@app.route('/download/<item_id>')
-def download(item_id):
+@app.route('/download/<shortcode>/<item_id>')
+def download(shortcode, item_id):
   # TODO: Retrieve file
-  pass
+  item=db.hgetall('{}:items:{}'.format(
+    shortcode,
+    item_id,
+  ))
+  return send_file(item['filepath'], as_attachment=True)
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -262,22 +272,16 @@ def logged_in():
 @app.route('/dashboard')
 def dashboard():
   merchant = logged_in()
-  # TODO: Get items
-  # Example:
-  items = [
-    {
-      'item_id': 89241749781247821,
-      'filename': 'filename.pdf',
-    },
-    {
-      'item_id': 193792813712,
-      'filename': 'filename.mp3',
-    },
-    {
-      'item_id': 290183921,
-      'filename': 'filename.jpg',
-    },
-  ]
+  shortcode = merchant['globe_shortcode']
+  item_ids=db.smembers('{}:items'.format(shortcode))
+  items=[]
+  for item_id in item_ids:
+    item=db.hgetall('{}:items:{}'.format(
+      shortcode,
+      item_id,
+    ))
+    item.update(item_id=item_id)
+    items.append(item)
   return render_template(
     'dashboard.html',
     integration="""<script src="http://phonepay.marksteve.com/static/js/phonepay.js"></script>
@@ -290,19 +294,29 @@ def dashboard():
 ></div>""",
     merchant=merchant,
     items=items,
+    messages=get_flashed_messages()
   )
+
+def allowed_file(filename):
+  return '.' in filename and \
+  filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 @app.route('/upload', methods=['POST'])
 def upload():
   merchant = logged_in()
 
-  # TODO
-  # upload file to filesystem: /var/uploads
-  # filename = ?
-  # filepath = ?
+  file = request.files['file']
+  #empty?
+  if not file:
+    flash('Empty!')
+    return redirect(url_for('dashboard'))
+  if file and allowed_file(file.filename):
+    filename = secure_filename(file.filename)
+    filepath=os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    file.save(filepath)
 
   item_id = simpleflake()
-
+  shortcode = merchant['globe_shortcode']
   # Save as upload of user
   db.sadd(
     '{}:items'.format(shortcode),
@@ -320,7 +334,7 @@ def upload():
       'filepath': filepath,
     },
   )
-
+  flash('Uploaded!')
   return redirect(url_for('dashboard'))
 
 @app.route('/delete/<item_id>')

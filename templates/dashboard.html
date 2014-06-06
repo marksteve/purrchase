@@ -36,12 +36,32 @@
   margin: 0;
   padding: 0;
 }
+.info, .success, .warning, .error, .validation {
+border: 1px solid;
+margin: 10px 0px;
+padding:15px 10px 15px 50px;
+background-repeat: no-repeat;
+background-position: 10px center;
+}
+.info {
+color: #00529B;
+background-color: #BDE5F8;
+}
+.success {
+color: #4F8A10;
+background-color: #DFF2BF;
+}
+.error {
+color: #D8000C;
+background-color: #FFBABA;
+}
 </style>
 {% endblock %}
 
 {% block content %}
 
 <h2>Dashboard</h2>
+
 <form action="/info" method="post">
   <h3>Settings</h3>
   <p>
@@ -72,11 +92,22 @@
     <button type="submit">Save Changes</button>
   </p>
 </p>
-
+</form>
 <h3>Integration</h3>
 <pre class="integration"><code>{{ integration.format(merchant.globe_shortcode)|escape }}</code></pre>
 
 <h3>Items</h3>
+{% if messages %}
+<div class="success flashes">
+  {% for message in messages %}
+    {{ message }}
+  {% endfor %}
+</div>
+{% endif %}
+<form action="upload" method="post" enctype="multipart/form-data">
+  <input type="file" name="file">
+  <input type="submit" value=Upload>
+</form>
 <ul class="items">
 {% for item in items %}
   <li>
