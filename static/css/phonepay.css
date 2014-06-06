@@ -90,6 +90,14 @@
 
   width: 80%;
   padding: 0;
+
+  color: white;
+  border: 0;
+  background: dodgerblue;
+}
+.phonepay-form .box button:disabled {
+  color: gray;
+  background: silver;
 }
 .phonepay-form .box .authorize-instructions {
   font-size: 80%;
