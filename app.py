@@ -4,7 +4,7 @@ import time
 import const
 import requests
 from flask import (abort, Flask, json, jsonify, redirect, render_template,
-                   request, url_for)
+                   request, session, url_for)
 from redis import StrictRedis
 from simpleflake import simpleflake
 
@@ -20,21 +20,37 @@ def index():
 def demos(demo):
   return render_template('demos/{}.html'.format(demo))
 
+@app.route('/info/<shortcode>')
+def info(shortcode):
+  merchant = db.hgetall(shortcode)
+  return jsonify(
+    store_name=merchant['store_name'],
+  )
+
 # ==== /oauth ==== #
-@app.route('/oauth')
-def oauth():
+@app.route('/oauth/<shortcode>')
+def oauth(shortcode):
+  merchant = db.hgetall(shortcode)
+  if not merchant:
+    abort(404)
   code = request.args['code']
-  # Hackathon "merchant" sample details
   data = {
-    'app_id': app.config['GLOBE_APP_ID'],
-    'app_secret': app.config['GLOBE_APP_SECRET'],
+    'app_id': merchant['globe_app_id'],
+    'app_secret': merchant['globe_app_secret'],
     'code': code,
   }
   res = requests.post(const.G_AUTH_ENDPOINT, data=data)
   if res.ok:
     payload = res.json()
-    db.hmset(payload['subscriber_number'], payload)
-    return render_template('oauth.html', **payload)
+    db.hmset(
+      '{}:{}'.format(shortcode, payload['subscriber_number']),
+      payload,
+    )
+    return render_template(
+      'oauth.html',
+      subscriber_number=payload['subscriber_number'],
+      store_name=merchant['store_name'],
+    )
   else:
     abort(500)
 # ==== END /oauth ==== #
@@ -45,24 +61,32 @@ def charge():
   """
   Charge URI is the endpoint for charging and sending of sms
   This endpoint expects the ff params:
+  - shortcode
   - subscriber_number
   - amount
   """
 
+  shortcode = request.json['shortcode']
+  merchant = db.hgetall(shortcode)
+  if not merchant:
+    abort(404)
+
   subscriber_number = request.json['subscriber_number']
   amount = request.json['amount']
 
-  #: get the access token from DB
-  access_token = db.hget(subscriber_number, 'access_token')
+  # Get the access token from DB
+  access_token = db.hget(
+    '{}:{}'.format(shortcode, subscriber_number),
+    'access_token',
+  )
   if not access_token:
     return jsonify(
       needs_authorization=True,
-      dialog_url=const.G_DIALOG.format(app.config['GLOBE_APP_ID']),
+      dialog_url=const.G_DIALOG.format(merchant['globe_app_id']),
     )
 
-  sender = app.config['GLOBE_SHORTCODE'][-4:] # this is weird!
-  # Generate a random code for this user session
-  confirm_code = str(simpleflake())[-6:]
+  sender = shortcode[-4:] # this is weird!
+  confirm_code = str(simpleflake())[-6:] # Generate a random code for this user session
 
   params = {'access_token': access_token}
   req = {
@@ -70,7 +94,8 @@ def charge():
       'clientCorrelator': str(simpleflake()),
       'senderAddress': 'tel:{}'.format(sender),
       'outboundSMSTextMessage': {
-        'message': 'PHonePay\n\nYou will be charged PHP {}. This is your code to proceed: {}'.format(
+        'message': '{}\n\nYou will be charged PHP {}. This is your code to proceed: {}'.format(
+          merchant['store_name'],
           amount,
           confirm_code,
         ),
@@ -108,6 +133,11 @@ def charge():
 # ==== /confirm ==== #
 @app.route('/confirm', methods=['POST'])
 def confirm():
+  shortcode = request.json['shortcode']
+  merchant = db.hgetall(shortcode)
+  if not merchant:
+    abort(404)
+
   subscriber_number = request.json['subscriber_number']
   confirm_code = request.json['confirm_code']
 
@@ -119,11 +149,14 @@ def confirm():
   db.delete(confirm_key)
 
   # Get access token
-  access_token = db.hget(subscriber_number, 'access_token')
+  access_token = db.hget(
+    '{}:{}'.format(shortcode, subscriber_number),
+    'access_token',
+  )
   if not access_token:
     abort(403)
 
-  suffix = app.config['GLOBE_SHORTCODE'][-4:] # this is weird!
+  suffix = shortcode[-4:] # this is weird!
   reference_code = '{0}1{1:06d}'.format(suffix, db.scard('charges') + 1)
 
   params = {'access_token': access_token}
@@ -171,11 +204,24 @@ def download(item_id):
   # TODO: Retrieve file
   pass
 
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+  shortcode = request.form['globe_shortcode']
+  db.hmset(shortcode, {
+    'store_name': request.form['store_name'],
+    'globe_app_id': request.form['globe_app_id'],
+    'globe_app_secret': request.form['globe_app_secret'],
+  })
+  session['shortcode'] = shortcode
+  return redirect(url_for('dashboard'))
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
   if request.method == 'POST':
-    session['shortcode'] = request.values['shortcode']
-    return redirect(url_for('dashboard'))
+    shortcode = request.values['shortcode']
+    if db.exists(shortcode):
+      session['shortcode'] = shortcode
+      return redirect(url_for('dashboard'))
 
   return render_template('login.html')
 

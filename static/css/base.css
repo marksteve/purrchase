@@ -82,10 +82,3 @@ form label input, form button {
   margin: 1em auto;
   padding: 2rem;
 }
-.login {
-  line-height: 2;
-
-  position: absolute;
-  top: 2em;
-  right: 2em;
-}

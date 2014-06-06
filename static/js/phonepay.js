@@ -29467,7 +29467,7 @@ var Form = React.createClass({displayName: 'Form',
   getInitialState: function() {
     return {
       options: {
-        header: 'PHonePay',
+        store_name: null,
         currency: 'PHP',
         button: 'Pay with Globe Load'
       },
@@ -29496,6 +29496,7 @@ var Form = React.createClass({displayName: 'Form',
     superagent
       .post('/charge')
       .send({
+        shortcode: options.shortcode,
         subscriber_number: number,
         amount: options.amount
       })
@@ -29528,6 +29529,7 @@ var Form = React.createClass({displayName: 'Form',
     superagent
       .post('/confirm')
       .send({
+        shortcode: this.state.options.shortcode,
         subscriber_number: this.state.number,
         confirm_code: $confirmCode.val()
       })
@@ -29688,7 +29690,7 @@ var Form = React.createClass({displayName: 'Form',
           {ref:"box",
           className:"box"}
           , 
-          React.DOM.h2(null, options.header),
+          React.DOM.h2(null, options.store_name),
           React.DOM.p(
             {className:"details",
             ref:"details"}
@@ -29713,25 +29715,32 @@ var form = React.renderComponent(
   container
 );
 
-window.pp = function(options) {
-  options = $.extend(form.state.options, options);
-  form.setState({
-    options: options
-  });
-};
+function renderButtons() {
+  Array.prototype.forEach.call(
+    document.querySelectorAll('.phonepay'),
+    function(el) {
+      React.renderComponent(
+        Button(
+          {form:form,
+          options:el.dataset}
+        ),
+        el
+      );
+    }
+  );
+}
 
-Array.prototype.forEach.call(
-  document.querySelectorAll('.phonepay'),
-  function(el) {
-    React.renderComponent(
-      Button(
-        {form:form,
-        options:el.dataset}
-      ),
-      el
-    );
-  }
-);
+window.pp = function(options) {
+  superagent
+    .get('/info/' + options.shortcode)
+    .end(function(res) {
+      options = $.extend(form.state.options, options, res.body);
+      form.setState({
+        options: options
+      });
+      renderButtons();
+    });
+};
 
 
 },{"./jquery.velocity.min":154,"./velocity.ui":156,"jquery":1,"react/addons":2,"superagent":151}],156:[function(require,module,exports){
