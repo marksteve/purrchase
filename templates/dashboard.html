@@ -8,6 +8,16 @@
 
 <h2>Dashboard</h2>
 
+{% if messages %}
+<ul class="messages">
+{% for category, message in messages %}
+  <li class="{{ category }} message">
+    {{ message }}
+  </li>
+{% endfor %}
+</ul>
+{% endif %}
+
 <h3>Integration</h3>
 <pre class="integration"><code>{{ integration.format(merchant.globe_shortcode)|escape }}</code></pre>
 
@@ -44,13 +54,6 @@
 </form>
 
 <h3>Upload</h3>
-{% if messages %}
-<div class="success flashes">
-  {% for message in messages %}
-    {{ message }}
-  {% endfor %}
-</div>
-{% endif %}
 <form action="upload" method="post" enctype="multipart/form-data">
   <p>
     <label>

@@ -312,7 +312,7 @@ def dashboard():
 >Buy</div>""",
     merchant=merchant,
     items=items,
-    messages=get_flashed_messages()
+    messages=get_flashed_messages(with_categories=True),
   )
 
 def allowed_file(filename):
@@ -322,13 +322,24 @@ def allowed_file(filename):
 @app.route('/upload', methods=['POST'])
 def upload():
   merchant = logged_in()
+  error = False
+
+  desc = request.form.get('desc')
+  if not desc:
+    flash("You need to write a description", 'error')
+    error = True
+
+  amount = request.form.get('amount')
+  if not amount:
+    flash("You need to specify item's price", 'error')
+    error = True
 
   file = request.files['file']
-  if not file:
-    flash('Empty!')
-    return redirect(url_for('dashboard'))
+  if not (file and allowed_file(file.filename)):
+    flash("Did you forget about your file?", 'error')
+    error = True
 
-  if file and allowed_file(file.filename):
+  if not error:
     filename = secure_filename(file.filename)
     filepath=os.path.join(app.config['UPLOAD_FOLDER'], filename)
     file.save(filepath)
@@ -350,14 +361,14 @@ def upload():
       {
         'filename': filename,
         'filepath': filepath,
-        'desc': request.form['description'],
-        'amount': request.form['amount'],
+        'desc': desc,
+        'amount': amount,
       },
     )
 
-    flash('Uploaded!')
+    flash('Item added!', 'success')
 
-    return redirect(url_for('dashboard'))
+  return redirect(url_for('dashboard'))
 
 @app.route('/delete/<item_id>')
 def delete(item_id):
