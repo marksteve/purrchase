@@ -2,7 +2,7 @@
 <html>
 <head>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Montserrat:400,700">
-  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400italic,700italic,400,700">
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css">
   <link rel="stylesheet" href="/static/css/open-iconic.min.css">
   <link rel="stylesheet" href="/static/css/base.css">
@@ -11,16 +11,19 @@
 </head>
 <body>
 <div class="page">
-  <h1><a href="/">PhonePay</a></h1>
-  <div class="login">
-    <small>
-      Already a user? <a href="/login">Login.</a>
-    </small>
-  </div>
-  <p>
-    The easiest way to sell your digital goods.
-  </p>
-  {% block content %}{% endblock %}
+
+<h1><a href="/">PhonePay</a></h1>
+<div class="login">
+  <small>
+    Already a user? <a href="/login">Login.</a>
+  </small>
+</div>
+<p>
+  The easiest way to sell your digital goods.
+</p>
+
+{% block content %}{% endblock %}
+
 </div>
 </body>
 </html>

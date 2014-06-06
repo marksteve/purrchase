@@ -1,6 +1,8 @@
 header {
   position: relative;
 
+  overflow: hidden;
+
   height: 1300px;
 
   background: url(../images/bg.jpg) no-repeat right top;
@@ -48,6 +50,7 @@ header {
   padding: 2em;
 
   background: white;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, .5);
 }
 .steps {
   position: absolute;
@@ -57,6 +60,7 @@ header {
   padding: 5em 0 7em 0;
 
   background: rgba(255, 255, 255, .9);
+  box-shadow: 0 0 20em black;
 }
 .steps ul {
   margin: 0;
