@@ -81,6 +81,7 @@ section h2 {
 
   transition: background-size .2s;
   vertical-align: top;
+  letter-spacing: 0;
 
   color: white;
   background: center center no-repeat;
@@ -100,7 +101,6 @@ section h2 {
 
   transition: all .2s;
   -webkit-transform: translateY(-50%);
-  letter-spacing: 0;
 
   opacity: 0;
   background-color: rgba(0, 0, 0, .8);
