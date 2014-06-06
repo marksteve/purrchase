@@ -298,8 +298,8 @@ def dashboard():
     item_code="""<div
   class="payload"
   data-id="{}"
-  data-desc="Item Description"
-  data-amount="10.00"
+  data-desc="{}"
+  data-amount="{}"
 ></div>""",
     merchant=merchant,
     items=items,

@@ -124,14 +124,14 @@ background-color: #FFBABA;
     </label>
   </p>
   <p class="submit">
-    <input type="submit" value="Upload">
+    <button type="submit" >upload</button>
   </p>
 </form>
 <ul class="items">
 {% for item in items %}
   <li>
     {{ item.filename }}
-    <pre><code>{{ item_code.format(item.item_id)|escape }}</code></pre>
+    <pre><code>{{ item_code.format(item.item_id, item.desc, item.price)|escape }}</code></pre>
   </li>
 {% endfor %}
 </ul>
