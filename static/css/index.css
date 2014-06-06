@@ -43,9 +43,6 @@ header {
 
   width: 40em;
 }
-.get-started h2 {
-  margin: 0;
-}
 .get-started form {
   width: 62%;
   margin: 0 auto;
@@ -54,14 +51,18 @@ header {
   background: white;
   box-shadow: 0 5px 10px rgba(0, 0, 0, .5);
 }
-
+.get-started .globelabs {
+  color: #999;
+}
+.get-started h2 {
+  margin: 0 0 .5em 0;
+}
 .get-started img.globe-logo {
   width: 25px;
   margin: 0 3px;
 
   vertical-align: middle;
 }
-
 .steps {
   position: absolute;
   bottom: 0;
