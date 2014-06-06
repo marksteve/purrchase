@@ -122,7 +122,11 @@ def charge():
   # Save confirm code assoc
   # Expires after 15 minutes
   db.setex(
-    '{}:confirm:{}'.format(subscriber_number, confirm_code),
+    '{}:{}:confirm:{}'.format(
+      shortcode,
+      subscriber_number,
+      confirm_code,
+    ),
     15 * 60,  # 15 minutes
     amount,
   )
@@ -142,7 +146,11 @@ def confirm():
   confirm_code = request.json['confirm_code']
 
   # Get confirm code assoc
-  confirm_key = '{}:confirm:{}'.format(subscriber_number, confirm_code)
+  confirm_key = '{}:{}:confirm:{}'.format(
+    shortcode,
+    subscriber_number,
+    confirm_code,
+  )
   amount = db.get(confirm_key)
   if not amount:
     abort(400)
@@ -178,6 +186,9 @@ def confirm():
     data=json.dumps(req)
   )
 
+  if not res.ok:
+    abort(500)
+
   # Log charges
   db.sadd('charges', reference_code)
   db.hmset(
@@ -187,9 +198,6 @@ def confirm():
       'amount': amount,
     },
   )
-
-  if not res.ok:
-    abort(500)
 
   # TODO:
   # Retrieve download url
