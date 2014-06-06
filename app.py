@@ -1,5 +1,6 @@
 import os
 import time
+from random import randint
 
 import const
 import requests
@@ -134,6 +135,9 @@ def charge():
   return jsonify(**payload)
 # ==== END /charge ==== #
 
+def gen_reference_code(suffix):
+  return '{0}1{1:06d}'.format(suffix, randint(0, 999999))
+
 # ==== /confirm ==== #
 @app.route('/confirm', methods=['POST'])
 def confirm():
@@ -164,29 +168,34 @@ def confirm():
     abort(403)
 
   suffix = shortcode[-4:] # this is weird!
-  reference_code = '{0}1{1:06d}'.format(suffix, db.scard('charges') + 1)
+  reference_code = gen_reference_code(suffix)
 
   params = {'access_token': access_token}
-  req = {
-    'amount': '0.00',
-    'description': amount,
-    'endUserId': subscriber_number,
-    'referenceCode': reference_code,
-    'transactionOperationStatus': 'charged',
-  }
 
   # Charge baby charge
-  res = requests.post(
-    const.G_CHARGING_ENDPOINT,
-    headers={
-      'Content-Type': 'application/json',
-    },
-    params=params,
-    data=json.dumps(req)
-  )
-
-  if not res.ok:
-    abort(500)
+  for _ in range(3):
+    req = {
+      'amount': '0.00',
+      'description': amount,
+      'endUserId': subscriber_number,
+      'referenceCode': reference_code,
+      'transactionOperationStatus': 'charged',
+    }
+    res = requests.post(
+      const.G_CHARGING_ENDPOINT,
+      headers={
+        'Content-Type': 'application/json',
+      },
+      params=params,
+      data=json.dumps(req)
+    )
+    if not res.ok:
+      error = res.json().get('error')
+      if error == 'Invalid referenceCode':
+        reference_code = gen_reference_code(suffix)
+        continue
+      abort(500)
+    break
 
   # Log charges
   db.sadd('charges', reference_code)
