@@ -51,10 +51,11 @@ label {
 
   color: gray;
 }
-input, button {
+input[type=text], input[type=password], button {
   padding: 0 .5em;
 }
-input {
+input[type=text],
+input[type=password] {
   height: 2em;
 
   border: 1px solid silver;
@@ -67,7 +68,10 @@ button {
   border: 0;
   background: dodgerblue;
 }
-form label input, form button {
+form label input[type=text],
+form label input[type=password],
+form label input[type=file],
+form button {
   display: block;
 
   width: 100%;

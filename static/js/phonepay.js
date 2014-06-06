@@ -29457,7 +29457,7 @@ var Button = React.createClass({displayName: 'Button',
         {className:"phonepay-button",
         onClick:this.showForm}
         , 
-        "Buy"
+        this.props.children
       )
     );
   }
@@ -29723,6 +29723,8 @@ function renderButtons() {
         Button(
           {form:form,
           options:el.dataset}
+          , 
+          el.innerText || 'Buy'
         ),
         el
       );

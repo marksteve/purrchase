@@ -17,7 +17,7 @@ var Button = React.createClass({
         className="phonepay-button"
         onClick={this.showForm}
         >
-        Buy
+        {this.props.children}
       </button>
     );
   }
@@ -283,7 +283,9 @@ function renderButtons() {
         <Button
           form={form}
           options={el.dataset}
-        />,
+          >
+          {el.innerText || 'Buy'}
+        </Button>,
         el
       );
     }

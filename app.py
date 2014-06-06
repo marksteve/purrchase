@@ -4,11 +4,12 @@ from random import randint
 
 import const
 import requests
-from flask import (abort, Flask, json, jsonify, redirect, render_template,
-                   request, session, url_for, flash, get_flashed_messages, send_file)
-from werkzeug.utils import secure_filename
+from flask import (abort, flash, Flask, get_flashed_messages, json, jsonify,
+                   redirect, render_template, request, send_file, session,
+                   url_for)
 from redis import StrictRedis
 from simpleflake import simpleflake
+from werkzeug.utils import secure_filename
 
 # For upload stuff
 UPLOAD_FOLDER = 'uploads'
@@ -289,18 +290,26 @@ def dashboard():
       shortcode,
       item_id,
     ))
-    item.update(item_id=item_id)
+    item.update(
+      item_id=item_id,
+      instabuy_url=url_for(
+        'instabuy',
+        shortcode=shortcode,
+        item_id=item_id,
+      ),
+    )
     items.append(item)
   return render_template(
     'dashboard.html',
-    integration="""<script src="http://phonepay.marksteve.com/static/js/phonepay.js"></script>
+    integration="""<link rel="stylesheet" href="http://phonepay.marksteve.com/static/css/phonepay.css">
+<script src="http://phonepay.marksteve.com/static/js/phonepay.js"></script>
 <script>pp({{shortcode: {}}});</script>""",
     item_code="""<div
   class="payload"
   data-id="{}"
   data-desc="{}"
   data-amount="{}"
-></div>""",
+>Buy</div>""",
     merchant=merchant,
     items=items,
     messages=get_flashed_messages()
@@ -315,38 +324,40 @@ def upload():
   merchant = logged_in()
 
   file = request.files['file']
-  #empty?
   if not file:
     flash('Empty!')
     return redirect(url_for('dashboard'))
+
   if file and allowed_file(file.filename):
     filename = secure_filename(file.filename)
     filepath=os.path.join(app.config['UPLOAD_FOLDER'], filename)
     file.save(filepath)
 
-  item_id = simpleflake()
-  shortcode = merchant['globe_shortcode']
-  # Save as upload of user
-  db.sadd(
-    '{}:items'.format(shortcode),
-    item_id,
-  )
-
-  # Save upload details
-  db.hmset(
-    '{}:items:{}'.format(
-      shortcode,
+    item_id = simpleflake()
+    shortcode = merchant['globe_shortcode']
+    # Save as upload of user
+    db.sadd(
+      '{}:items'.format(shortcode),
       item_id,
-    ),
-    {
-      'filename': filename,
-      'filepath': filepath,
-      'desc'    : request.form['description'],
-      'price'   : request.form['price']
-    },
-  )
-  flash('Uploaded!')
-  return redirect(url_for('dashboard'))
+    )
+
+    # Save upload details
+    db.hmset(
+      '{}:items:{}'.format(
+        shortcode,
+        item_id,
+      ),
+      {
+        'filename': filename,
+        'filepath': filepath,
+        'desc': request.form['description'],
+        'amount': request.form['amount'],
+      },
+    )
+
+    flash('Uploaded!')
+
+    return redirect(url_for('dashboard'))
 
 @app.route('/delete/<item_id>')
 def delete(item_id):
