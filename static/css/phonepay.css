@@ -1,10 +1,7 @@
-*
-{
+* {
   box-sizing: border-box;
 }
-
-.phonepay-form
-{
+.phonepay-form {
   position: fixed;
   top: 0;
   right: 0;
@@ -13,21 +10,13 @@
 
   text-align: center;
 }
-
-.phonepay-form,
-.phonepay-form input,
-.phonepay-form button
-{
+.phonepay-form, .phonepay-form input, .phonepay-form button {
   font: 20px/1.5 sans-serif;
 }
-
-.phonepay-form.hidden
-{
+.phonepay-form.hidden {
   display: none;
 }
-
-.phonepay-form .overlay
-{
+.phonepay-form .overlay {
   position: absolute;
   top: 0;
   right: 0;
@@ -36,9 +25,7 @@
 
   background: rgba(0, 0, 0, .5);
 }
-
-.phonepay-form .box
-{
+.phonepay-form .box {
   position: absolute;
   z-index: 10;
   top: 0;
@@ -55,9 +42,7 @@
   background: white;
   box-shadow: 0 5px 10px rgba(0, 0, 0, .5);
 }
-
-.phonepay-form .box h2
-{
+.phonepay-form .box h2 {
   font-size: 100%;
   font-weight: normal;
   line-height: 3rem;
@@ -67,9 +52,7 @@
   color: white;
   background: dodgerblue;
 }
-
-.phonepay-form .box .details
-{
+.phonepay-form .box .details {
   font-size: 120%;
   line-height: 1;
 
@@ -79,27 +62,19 @@
 
   border-bottom: 1px solid silver;
 }
-
-.phonepay-form .box p
-{
+.phonepay-form .box p {
   margin: 0 0 1em 0;
 }
-
-.phonepay-form .box .amount
-{
+.phonepay-form .box .amount {
   white-space: nowrap;
 }
-
-.phonepay-form .box label
-{
+.phonepay-form .box label {
   font-size: 60%;
   font-weight: bold;
 
   color: gray;
 }
-
-.phonepay-form .box input
-{
+.phonepay-form .box input {
   font-family: monospace;
   font-size: 200%;
   font-weight: bold;
@@ -110,30 +85,22 @@
 
   text-align: center;
 }
-
-.phonepay-form .box button
-{
+.phonepay-form .box button {
   line-height: 3rem;
 
   width: 80%;
   padding: 0;
 }
-
-.phonepay-form .box .authorize-instructions
-{
+.phonepay-form .box .authorize-instructions {
   font-size: 80%;
 
   margin: 0;
   padding: 2em;
 }
-
-.phonepay-form .box .download
-{
+.phonepay-form .box .download {
   padding: 2em;
 }
-
-.phonepay-form .box .powered-by
-{
+.phonepay-form .box .powered-by {
   font-size: 50%;
 
   position: absolute;

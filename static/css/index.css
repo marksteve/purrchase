@@ -1,41 +1,32 @@
-*
-{
+* {
   box-sizing: border-box;
 }
-body, input, button
-{
+body, input, button {
   font: 20px/1.5 sans-serif;
 
   color: #666;
 }
-h1, h2, h3, button
-{
+h1, h2, h3, button {
   font-family: Montserrat, sans-serif;
 }
-h1
-{
+h1 {
   margin: 0;
 }
-h1 a
-{
+h1 a {
   color: inherit;
 }
-h2
-{
+h2 {
   margin: 3rem 0 0 0;
 }
-a
-{
+a {
   text-decoration: none;
 
   color: dodgerblue;
 }
-a:hover
-{
+a:hover {
   text-decoration: underline;
 }
-section
-{
+section {
   position: relative;
 
   max-width: 60em;
@@ -44,51 +35,41 @@ section
 
   background: white;
 }
-.login
-{
+.login {
   line-height: 2;
 
   position: absolute;
   top: 2em;
   right: 2em;
 }
-p
-{
+p {
   margin: 0 0 1em 0;
 }
-p.submit
-{
+p.submit {
   padding-top: 1em;
 }
-code
-{
+code {
   font-size: 200%;
 }
-form
-{
+form {
   margin-top: 1.5em;
 }
-label
-{
+label {
   font-size: 80%;
   line-height: 1;
 
   color: gray;
 }
-form label input, form button
-{
+form label input, form button {
   width: 100%;
 }
-form label input,
-form button
-{
+form label input, form button {
   display: block;
 
   height: 2em;
   padding: 0 .5em;
 }
-.steps
-{
+.steps {
   margin: 3em 0;
   padding: 0;
 
@@ -96,8 +77,7 @@ form button
 
   letter-spacing: -.5em;
 }
-.steps li
-{
+.steps li {
   display: inline-block;
 
   width: 33%;
@@ -107,28 +87,22 @@ form button
   vertical-align: top;
   letter-spacing: 0;
 }
-.steps .oi
-{
+.steps .oi {
   font-size: 400%;
 }
-.steps h3
-{
+.steps h3 {
   margin: 0 0 .5em 0;
 }
-.upload
-{
+.upload {
   color: #e74c3c;
 }
-.copy
-{
+.copy {
   color: #3498db;
 }
-.profit
-{
+.profit {
   color: #2ecc71;
 }
-.get-started, .demos, .login-form
-{
+.get-started, .demos, .login-form {
   width: 38%;
   margin: 5em auto;
 }
