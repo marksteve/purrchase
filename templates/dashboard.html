@@ -19,7 +19,6 @@
 {% endif %}
 
 <h3>Integration</h3>
-<pre class="integration"><code>{{ integration.format(merchant.globe_shortcode)|escape }}</code></pre>
 <p>
 Go to your Globe Labs'
   <a href="http://www.globelabs.com.ph/apps/{{ merchant.globe_app_id }}/edit">app page</a>
@@ -29,6 +28,10 @@ Go to your Globe Labs'
 <p>
   and its <strong>SMS Notify URI</strong> to:<br>
   <code>http://phonepay.marksteve.com/sms/{{ merchant.globe_shortcode }}</code>
+</p>
+<p>
+  Add the following to your HTML to allow embedding in your sites:
+  <pre class="integration"><code>{{ integration.format(merchant.globe_shortcode)|escape }}</code></pre>
 </p>
 <h3>Settings</h3>
 <form action="/info" method="post">
