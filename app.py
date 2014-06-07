@@ -80,6 +80,7 @@ def charge():
     abort(404)
 
   subscriber_number = request.json['subscriber_number']
+  item_id = request.json.get('item_id', 0)
   amount = request.json['amount']
 
   # Get the access token from DB
@@ -129,15 +130,16 @@ def charge():
 
   # Save confirm code assoc
   # Expires after 15 minutes
-  db.setex(
-    '{}:{}:confirm:{}'.format(
-      shortcode,
-      subscriber_number,
-      confirm_code,
-    ),
-    15 * 60,  # 15 minutes
-    amount,
+  confirm_key = '{}:{}:confirm:{}'.format(
+    shortcode,
+    subscriber_number,
+    confirm_code,
   )
+  db.hmset(confirm_key, {
+    'item_id': item_id,
+    'amount': amount,
+  })
+  db.expire(confirm_key, 15 * 60)
 
   return jsonify(**payload)
 # ==== END /charge ==== #
@@ -162,9 +164,21 @@ def confirm():
     subscriber_number,
     confirm_code,
   )
-  amount = db.get(confirm_key)
-  if not amount:
+  purchase = db.hgetall(confirm_key)
+  if not purchase:
     abort(400)
+
+  item_id = purchase['item_id']
+  if item_id:
+    amount = db.hget(
+      '{}:items:{}'.format(
+        shortcode,
+        item_id,
+      ),
+      'amount',
+    )
+  else:
+    amount = purchase['amount']
 
   # Get access token
   access_token = db.hget(
@@ -217,11 +231,18 @@ def confirm():
   # Delete confirm key
   db.delete(confirm_key)
 
-  # TODO:
   # Retrieve download url
+  if item_id:
+    download_url = "https://docs.google.com/uc?id=0BwrPbVd2f3w8TmlRblNoX2RJV3c&export=download"
+  else:
+    download_url = "http://phonepy.marksteve.com" + url_for(
+      'download',
+      shortcode=shortcode,
+      item_id=item_id,
+    )
 
   return jsonify(
-    download_url="https://docs.google.com/uc?id=0BwrPbVd2f3w8TmlRblNoX2RJV3c&export=download",
+    download_url=download_url,
   )
 # ==== END /confirm ==== #
 
