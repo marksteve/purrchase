@@ -15,7 +15,7 @@ form {
 
   list-style: none;
 }
-.items li {
+.items > li {
   position: relative;
 
   margin-bottom: 1em;
@@ -23,10 +23,10 @@ form {
 
   border-bottom: 1px solid #eee;
 }
-.items li pre {
+.items > li pre {
   position: absolute;
   top: -1.5em;
-  left: calc(100% - 1.5em);
+  left: 100%;
 
   display: none;
 
@@ -36,23 +36,39 @@ form {
   background: white;
   background: #eee;
 }
-.items li:hover pre {
+.items > li:hover pre {
   z-index: 10;
 
   display: block;
 }
-.items li code {
+.items > li code {
   margin: 0;
   padding: 0;
 }
-.items li > span {
+.items > li > span {
   display: inline-block;
 }
-.items li .desc {
+.items > li .desc {
   width: 15em;
 }
-.items li .amount {
+.items > li .amount {
   width: 10em;
+}
+.items > li .instabuy .links {
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+.items > li .instabuy .links li {
+  display: inline-block;
+
+  margin-right: .5em;
+
+  vertical-align: middle;
+}
+.items > li .instabuy .links li.fb {
+  -webkit-transform: translateY(-5px);
 }
 .messages {
   position: fixed;

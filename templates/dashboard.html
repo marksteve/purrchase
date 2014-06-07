@@ -67,7 +67,7 @@ Go to your Globe Labs'
   <p>
     <label>
       Description
-      <input type="text" name="description" value="">
+      <input type="text" name="desc" value="">
     </label>
   </p>
   <p>
@@ -87,6 +87,17 @@ Go to your Globe Labs'
   </p>
 </form>
 
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=1516465315248249&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<script>!function(d,s,id){var
+js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
 <h3>Items</h3>
 <ul class="items">
   <li>
@@ -99,9 +110,27 @@ Go to your Globe Labs'
     <span class="desc">{{ item.desc }}</span>
     <span class="amount">PHP {{ item.amount }}</span>
     <span class="instabuy">
-      <a href="{{ item.instabuy_url }}">
-        <span class="oi" data-glyph="link-intact"></span>
-      </a>
+      <ul class="links">
+        <li>
+          <a href="{{ item.instabuy_url }}">
+            <span class="oi" data-glyph="link-intact"></span>
+          </a>
+        </li>
+        <li class="fb">
+          <div
+            class="fb-share-button"
+            data-href="http://phonepay.marksteve.com{{ item.instabuy_url }}"
+            data-type="button"></div>
+        </li>
+        <li>
+          <a href="https://twitter.com/share" class="twitter-share-button"
+            data-lang="en"
+            data-url="http://phonepay.marksteve.com{{ item.instabuy_url }}"
+            data-text="{{ item.desc }}"
+            data-count="none"
+            >Tweet</a>
+        </li>
+      </ul>
     </span>
     <pre><code>{{ item_code.format(
       item.item_id,
