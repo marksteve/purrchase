@@ -80,7 +80,7 @@ def charge():
     abort(404)
 
   subscriber_number = request.json['subscriber_number']
-  item_id = request.json.get('item_id', 0)
+  item_id = request.json.get('item_id', 'demo')
   amount = request.json['amount']
 
   # Get the access token from DB
@@ -224,6 +224,7 @@ def confirm():
     'charges:{}'.format(reference_code),
     {
       'subscriber_number': subscriber_number,
+      'item_id': item_id,
       'amount': amount,
     },
   )
@@ -232,10 +233,10 @@ def confirm():
   db.delete(confirm_key)
 
   # Retrieve download url
-  if item_id:
+  if item_id == "demo":
     download_url = "https://docs.google.com/uc?id=0BwrPbVd2f3w8TmlRblNoX2RJV3c&export=download"
   else:
-    download_url = "http://phonepy.marksteve.com" + url_for(
+    download_url = "http://phonepay.marksteve.com" + url_for(
       'download',
       shortcode=shortcode,
       item_id=item_id,
@@ -248,8 +249,7 @@ def confirm():
 
 @app.route('/download/<shortcode>/<item_id>')
 def download(shortcode, item_id):
-  # TODO: Retrieve file
-  item=db.hgetall('{}:items:{}'.format(
+  item = db.hgetall('{}:items:{}'.format(
     shortcode,
     item_id,
   ))

@@ -58,6 +58,7 @@ var Form = React.createClass({
       .send({
         shortcode: options.shortcode,
         subscriber_number: number,
+        item_id: options.item_id,
         amount: options.amount
       })
       .end((function(res) {
