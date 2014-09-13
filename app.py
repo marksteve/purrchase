@@ -122,6 +122,8 @@ def charge():
     data=json.dumps(req)
   )
 
+  app.logger.debug(res.content)
+
   if not res.ok:
     abort(500)
 
