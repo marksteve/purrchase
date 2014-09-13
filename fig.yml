@@ -1,5 +1,5 @@
 app:
-  image: tadhack
+  build: .
   links:
     - redis:redis
   ports:
@@ -9,16 +9,17 @@ app:
   command: python app.py
 
 buildjs:
-  image: tadhack
+  build: .
   volumes:
     - .:/src
   command: watchify -t reactify static/jsx/phonepay.js -o static/js/phonepay.js -v
 
 buildcss:
-  image: tadhack
+  build: .
   volumes:
     - .:/src
   command: watchmedo shell-command -R -w -p "*.css" -c "csscomb -v static/css/"
 
 redis:
-  image: orchardup/redis
+  image: redis
+  command: redis-server --appendonly yes
